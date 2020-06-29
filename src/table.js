@@ -13,6 +13,7 @@ import {
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
+import Paper from "@material-ui/core/Paper";
 
 const getRowId = row => row.id;
 
@@ -37,6 +38,7 @@ const RowDetail = ({ row }) => {
             key={test.id}
             label={test.text}
             onDelete={() => deleteTest(test.id)}
+            style={{ marginRight: '8px' }}
           />
         )) : (
           <p>
@@ -56,10 +58,14 @@ const RowDetail = ({ row }) => {
 };
 
 const columns = [
-  { name: 'id', title: '#id' },
   { name: 'role', title: 'Role' },
   { name: 'action', title: 'Action' },
   { name: 'purpose', title: 'Purpose' },
+  { name: 'tests', title: 'Tests exist', getCellValue: row => row.tests.length > 0 ? 'true' : 'false' },
+];
+
+const editingStateColumnExtensions = [
+  { columnName: 'tests', editingEnabled: false },
 ];
 
 export default ({ data, setData }) => {
@@ -78,7 +84,7 @@ export default ({ data, setData }) => {
   };
 
   return (
-    <div className="card">
+    <Paper>
       <Grid
         rows={stories}
         columns={columns}
@@ -91,6 +97,7 @@ export default ({ data, setData }) => {
           onEditingCellsChange={setEditingCells}
           addedRows={[]}
           onAddedRowsChange={addEmptyStory}
+          columnExtensions={editingStateColumnExtensions}
         />
         <Table cellComponent={FocusableCell} />
         <TableHeaderRow />
@@ -103,6 +110,6 @@ export default ({ data, setData }) => {
           contentComponent={RowDetail}
         />
       </Grid>
-    </div>
+    </Paper>
   );
 };

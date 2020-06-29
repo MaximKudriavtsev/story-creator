@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { saveAs } from 'file-saver';
 import { useSelector, useDispatch } from 'react-redux';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
 
 // { name: 'id', title: '#id' },
 // { name: 'role', title: 'Role' },
@@ -18,7 +21,7 @@ const generateMD = (data) => {
   result.push('\n| ID | Criteria | Test |');
 
   data.forEach((story, id) => {
-    const tableLine = `| ${id + 1} | Capability to ${story.action} | ${story.tests.map((test, testId) => `${testId}. ${test.text} `).join('')}|`;
+    const tableLine = `| ${id + 1} | Capability to ${story.action} | ${story.tests.map((test, testId) => `${testId}. ${test.text} `).join('')} |`;
     result.push(tableLine);
   });
 
@@ -40,8 +43,17 @@ export default () => {
   }, [stories]);
 
   return (
-    <button onClick={exportMD}>
-      Export md file
-    </button>
+    <React.Fragment>
+      <p style={{ marginTop: '21px' }}>
+        <Paper>
+          <TextField value={generateMD(stories)} variant="outlined" multiline style={{ width: '100%' }} />
+        </Paper>
+      </p>
+      <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '14px' }}>
+        <Button variant="outlined" color="primary" onClick={exportMD}>
+          Export md file
+        </Button>
+      </div>
+    </React.Fragment>
   );
 };

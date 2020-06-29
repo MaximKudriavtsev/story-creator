@@ -64,15 +64,7 @@ export default (state = initialState, action) => {
         stories: nextStories,
       };
     }
-    case 'deleteTest': { // story id, test id
-      // const nextStories = state.stories.reduce((acc, story) => {
-      //   if (action.storyId === story.id) {
-      //     story.tests.push(getEmptyTest(action.text));
-      //   }
-      //   acc.push(story);
-      //   return acc;
-      // }, []);
-
+    case 'deleteTest': { // OK
       const nextStories = state.stories.map((story) => {
         if (story.id === action.storyId) {
           story.tests = story.tests.filter(test => test.id !== action.testId);
