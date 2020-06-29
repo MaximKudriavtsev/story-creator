@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useSelector, useDispatch } from 'react-redux';
 import { EditingState, RowDetailState } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -8,6 +10,9 @@ import {
   TableRowDetail,
   TableInlineCellEditing,
 } from '@devexpress/dx-react-grid-material-ui';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
 
 const getRowId = row => row.id;
 
@@ -15,53 +20,67 @@ const FocusableCell = ({ onClick, ...restProps }) => (
   <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
 );
 
-const RowDetail = ({ row }) => (
-  <div>
-    'Acceptance Criteria & Tests'
-  </div>
-);
+const RowDetail = ({ row }) => {
+  const dispatch = useDispatch();
+  const [text, setText] = React.useState('');
+  const addTest = React.useCallback(() => {
+    setText('');
+    dispatch({ type: 'addTest', storyId: row.id, text });
+  }, [row, text, dispatch]);
+  const deleteTest = React.useCallback((testId) => dispatch({ type: 'deleteTest', testId, storyId: row.id }), [row, dispatch]);
+
+  return (
+    <div>
+      <div style={{ paddingBottom: '8px' }}>
+        {row.tests.length ? row.tests.map(test => (
+          <Chip
+            key={test.id}
+            label={test.text}
+            onDelete={() => deleteTest(test.id)}
+          />
+        )) : (
+          <p>
+            No tests here.
+          </p>
+        )}
+      </div>
+
+      <div>
+        <TextField variant="filled" value={text} onChange={e => setText(e.target.value)} />
+        <Button color="primary" onClick={addTest}>
+          Add
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+const columns = [
+  { name: 'id', title: '#id' },
+  { name: 'role', title: 'Role' },
+  { name: 'action', title: 'Action' },
+  { name: 'purpose', title: 'Purpose' },
+];
 
 export default ({ data, setData }) => {
-  const [columns] = useState([
-    { name: 'id', title: '#id' },
-    { name: 'role', title: 'Role' },
-    { name: 'action', title: 'Action' },
-    { name: 'result', title: 'Result' },
-  ]);
+  const stories = useSelector(state => state.stories);
+  const dispatch = useDispatch();
   const [editingCells, setEditingCells] = useState([]);
+  const addEmptyStory = React.useCallback(() => dispatch({ type: 'addStory' }), [dispatch]);
 
   const commitChanges = ({ added, changed, deleted }) => {
-    let changedRows;
-    if (added) {
-      const startingAddedId = data.length > 0
-        ? Math.max(data[data.length - 1].id, data[0].id) + 1
-        : 0;
-      changedRows = [
-        ...added.map((row, index) => ({
-          id: startingAddedId + index,
-          ...row,
-        })),
-        ...data,
-      ];
-      setEditingCells([{ rowId: startingAddedId, columnName: columns[0].name }]);
-    }
     if (changed) {
-      changedRows = data.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      dispatch({ type: 'changeStory', changed });
     }
     if (deleted) {
-      const deletedSet = new Set(deleted);
-      changedRows = data.filter(row => !deletedSet.has(row.id));
+      dispatch({ type: 'deleteStory', deleted });
     }
-
-    setData(changedRows);
   };
-
-  const addEmptyRow = () => commitChanges({ added: [{}] });
 
   return (
     <div className="card">
       <Grid
-        rows={data}
+        rows={stories}
         columns={columns}
         getRowId={getRowId}
       >
@@ -71,7 +90,7 @@ export default ({ data, setData }) => {
           editingCells={editingCells}
           onEditingCellsChange={setEditingCells}
           addedRows={[]}
-          onAddedRowsChange={addEmptyRow}
+          onAddedRowsChange={addEmptyStory}
         />
         <Table cellComponent={FocusableCell} />
         <TableHeaderRow />
