@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a1040a2df59f7191c7bc303fdf8394cd",
+    "revision": "f67aafdec8fe0958f7062a30883096af",
     "url": "/story-creator/index.html"
   },
   {
-    "revision": "2c2d923e0b8e031fbbb5",
+    "revision": "68c6735d1a73c68ebf6c",
     "url": "/story-creator/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/story-creator/static/js/2.1116bd7e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2c2d923e0b8e031fbbb5",
-    "url": "/story-creator/static/js/main.eefb2588.chunk.js"
+    "revision": "68c6735d1a73c68ebf6c",
+    "url": "/story-creator/static/js/main.6971646d.chunk.js"
   },
   {
     "revision": "c8106f8f7c09e7790741",
