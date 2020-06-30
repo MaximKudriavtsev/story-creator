@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/story-creator/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/story-creator/static/js/main.6971646d.chunk.js",
-    "main.js.map": "/story-creator/static/js/main.6971646d.chunk.js.map",
+    "main.js": "/story-creator/static/js/main.5ca7c321.chunk.js",
+    "main.js.map": "/story-creator/static/js/main.5ca7c321.chunk.js.map",
     "runtime-main.js": "/story-creator/static/js/runtime-main.9a939460.js",
     "runtime-main.js.map": "/story-creator/static/js/runtime-main.9a939460.js.map",
     "static/js/2.1116bd7e.chunk.js": "/story-creator/static/js/2.1116bd7e.chunk.js",
     "static/js/2.1116bd7e.chunk.js.map": "/story-creator/static/js/2.1116bd7e.chunk.js.map",
     "index.html": "/story-creator/index.html",
-    "precache-manifest.648439f2b30d7d2e635613ad8b245b9a.js": "/story-creator/precache-manifest.648439f2b30d7d2e635613ad8b245b9a.js",
+    "precache-manifest.e8f269020929e5d5880bdfc13ebdfcd1.js": "/story-creator/precache-manifest.e8f269020929e5d5880bdfc13ebdfcd1.js",
     "service-worker.js": "/story-creator/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/story-creator/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.1116bd7e.chunk.js.LICENSE.txt": "/story-creator/static/js/2.1116bd7e.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.9a939460.js",
     "static/js/2.1116bd7e.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.6971646d.chunk.js"
+    "static/js/main.5ca7c321.chunk.js"
   ]
 }
