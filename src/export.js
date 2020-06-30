@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { saveAs } from 'file-saver';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
@@ -21,7 +21,7 @@ const generateMD = (data) => {
   result.push('\n| ID | Criteria | Test |');
 
   data.forEach((story, id) => {
-    const tableLine = `| ${id + 1} | Capability to ${story.action}. | ${story.tests.map((test, testId) => `${testId}. ${test.text}. `).join('')} |`;
+    const tableLine = `| ${id + 1} | Capability to ${story.action}. | ${story.tests.map((test, testId) => `${testId + 1}. ${test.text}. `).join('')} |`;
     result.push(tableLine);
   });
 
