@@ -14,14 +14,14 @@ const generateMD = (data) => {
   const result = ['#### User Stories\n'];
 
   data.forEach((story, id) => {
-    result.push(`${id + 1}. As a ${story.role}, I want to be able to ${story.action} so that to ${story.purpose}.`);
+    result.push(`${id + 1}. As a ${story.role}, I want to be able to ${story.action}, so that I can ${story.purpose}.`);
   });
 
   result.push('\n#### Acceptance Criteria & Tests');
   result.push('\n| ID | Criteria | Test |');
 
   data.forEach((story, id) => {
-    const tableLine = `| ${id + 1} | Capability to ${story.action} | ${story.tests.map((test, testId) => `${testId}. ${test.text} `).join('')} |`;
+    const tableLine = `| ${id + 1} | Capability to ${story.action}. | ${story.tests.map((test, testId) => `${testId}. ${test.text}. `).join('')} |`;
     result.push(tableLine);
   });
 
