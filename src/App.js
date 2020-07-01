@@ -39,14 +39,14 @@ function App() {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <h3 style={{ textAlign: 'center' }}>
+      {/* <h3 style={{ textAlign: 'center' }}>
         Make stories by adding data into the table. Just click on any cell to enable editing mode.
-      </h3>
+      </h3> */}
       <div style={{ display: 'flex' }}>
-        <div style={{ width: '55%', padding: '14px' }}>
+        <div style={{ width: '55%', padding: '16px' }}>
           <Table />
         </div>
-        <div style={{ width: '45%', padding: '14px' }}>
+        <div style={{ width: '45%', padding: '16px', paddingLeft: '0px' }}>
           <Export />
         </div>
       </div>
