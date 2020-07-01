@@ -1,23 +1,55 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import { saveAs } from 'file-saver';
 import Export from './export';
 import Table from './table';
+import { generateMD } from './export';
 
 function App() {
+  const stories = useSelector(state => state.stories);
+  const exportMD = React.useCallback(() => {
+    const filename = "data.md";
+
+    const blob = new Blob([generateMD(stories)], {
+      type: 'text/plain;charset=utf-8'
+    });
+
+    saveAs(blob, filename);
+  }, [stories]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <h3 style={{ textAlign: 'center' }}>
-          Make stories by adding data into the table. Just click on any cell to enable editing mode.
-        </h3>
-        <div style={{ display: 'flex' }}>
-          <div style={{ width: '55%', padding: '14px' }}>
-            <Table />
-          </div>
-          <div style={{ width: '45%', padding: '14px' }}>
-            <Export />
-          </div>
+    <div className="App" style={{ width: '100vw', height: '100vh', backgroundColor: '#ECEFF1' }}>
+      <AppBar position="static" color="default">
+        <Toolbar>
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            Story Creator
+          </Typography>
+          <Tooltip title="Download a markdown file">
+            <IconButton
+              onClick={exportMD}
+            >
+              <SaveAlt />
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
+      </AppBar>
+      <h3 style={{ textAlign: 'center' }}>
+        Make stories by adding data into the table. Just click on any cell to enable editing mode.
+      </h3>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '55%', padding: '14px' }}>
+          <Table />
         </div>
-      </header>
+        <div style={{ width: '45%', padding: '14px' }}>
+          <Export />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
 import { useSelector } from 'react-redux';
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import marked from 'marked';
@@ -17,7 +17,7 @@ import Box from '@material-ui/core/Box';
 // { name: 'action', title: 'Action' },
 // { name: 'purpose', title: 'Purpose' },
 
-const generateMD = (data) => {
+export const generateMD = (data) => {
   const result = ['#### User Stories\n'];
 
   data.forEach((story, id) => {
@@ -62,15 +62,15 @@ export default () => {
   const [tabValue, setTabValue] = React.useState(0);
   const handleChange = React.useCallback((event, value) => setTabValue(value), [setTabValue]);
 
-  const exportMD = React.useCallback(() => {
-    const filename = "data.md";
+  // const exportMD = React.useCallback(() => {
+  //   const filename = "data.md";
 
-    const blob = new Blob([markdown], {
-      type: 'text/plain;charset=utf-8'
-    });
+  //   const blob = new Blob([markdown], {
+  //     type: 'text/plain;charset=utf-8'
+  //   });
 
-    saveAs(blob, filename);
-  }, [markdown]);
+  //   saveAs(blob, filename);
+  // }, [markdown]);
 
   return (
     <React.Fragment>
@@ -88,11 +88,11 @@ export default () => {
           <div dangerouslySetInnerHTML={{__html: marked(markdown) }} />
         </TabPanel>
       </Paper>
-      <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '14px' }}>
+      {/* <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '14px' }}>
         <Button variant="outlined" color="primary" onClick={exportMD}>
           Export md file
         </Button>
-      </div>
+      </div> */}
     </React.Fragment>
   );
 };
