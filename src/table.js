@@ -14,12 +14,29 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
+import {
+  SortableContainer,
+  SortableHandle,
+  SortableElement,
+  arrayMove
+} from "react-sortable-hoc";
 
 const getRowId = row => row.id;
 
-const FocusableCell = ({ onClick, ...restProps }) => (
-  <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
-);
+const DragHandle = SortableHandle(({ style }) => (
+  <span style={{ ...style, ...{ cursor: "move" } }}>{"::::"}</span>
+));
+
+const FocusableCell = ({ onClick, ...restProps }) => {
+  if (restProps.column.name === "drag") {
+    return (
+      <Table.Cell {...restProps}>
+        <DragHandle />
+      </Table.Cell>
+    );
+  }
+  return <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />;
+}
 
 const RowDetail = ({ row }) => {
   const dispatch = useDispatch();
@@ -62,17 +79,20 @@ const columns = [
   { name: 'action', title: 'Action' },
   { name: 'purpose', title: 'Purpose' },
   { name: 'tests', title: 'Tests exist', getCellValue: row => row.tests.length > 0 ? 'true' : 'false' },
+  { name: 'drag', title: '' },
 ];
 
 const editingStateColumnExtensions = [
   { columnName: 'tests', editingEnabled: false },
 ];
 
-export default ({ data, setData }) => {
+export default () => {
   const stories = useSelector(state => state.stories);
   const dispatch = useDispatch();
   const [editingCells, setEditingCells] = useState([]);
   const addEmptyStory = React.useCallback(() => dispatch({ type: 'addStory' }), [dispatch]);
+  const onSortEnd = ({ oldIndex, newIndex }) =>
+    dispatch({ type: 'setStories', stories: arrayMove(stories, oldIndex, newIndex) });
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (changed) {
@@ -99,7 +119,19 @@ export default ({ data, setData }) => {
           onAddedRowsChange={addEmptyStory}
           columnExtensions={editingStateColumnExtensions}
         />
-        <Table cellComponent={FocusableCell} />
+        <Table
+          cellComponent={FocusableCell}
+          bodyComponent={({ row, ...restProps }) => {
+            const TableBody = SortableContainer(Table.TableBody);
+            return (
+              <TableBody {...restProps} onSortEnd={onSortEnd} useDragHandle />
+            );
+          }}
+          rowComponent={({ row, ...restProps }) => {
+            const TableRow = SortableElement(Table.Row);
+            return <TableRow {...restProps} index={stories.indexOf(row)} />;
+          }}  
+        />
         <TableHeaderRow />
         <TableInlineCellEditing selectTextOnEditStart />
         <TableEditColumn

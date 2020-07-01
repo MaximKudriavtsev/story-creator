@@ -32,6 +32,9 @@ const getEmptyTest = (text) => ({
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'setStories': {
+      return { stories: action.stories };
+    }
     case 'addStory': { // OK
       return {
         stories: [...state.stories, getEmptyStory()] 
