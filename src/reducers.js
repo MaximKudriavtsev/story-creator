@@ -5,7 +5,7 @@ const initialState = {
     id: uuidv4(),
     role: 'Story Tailer',
     action: 'make stories',
-    purpose: 'make my work convenient',
+    purpose: 'make my work more convenient',
     tests: [{
       id: uuidv4(),
       text: 'Open Story Creator App'

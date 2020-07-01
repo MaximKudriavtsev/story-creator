@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
-import { EditingState, RowDetailState } from '@devexpress/dx-react-grid';
+import { EditingState, RowDetailState, DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
@@ -20,11 +19,23 @@ import {
   SortableElement,
   arrayMove
 } from "react-sortable-hoc";
+import Done from '@material-ui/icons/Done';
+import Close from '@material-ui/icons/Close';
+import DragIndicator from '@material-ui/icons/DragIndicator';
 
 const getRowId = row => row.id;
 
+const BooleanFormatter = ({ value }) => value ? <Done /> : <Close />;
+
+const BooleanTypeProvider = props => (
+  <DataTypeProvider
+    formatterComponent={BooleanFormatter}
+    {...props}
+  />
+);
+
 const DragHandle = SortableHandle(({ style }) => (
-  <span style={{ ...style, ...{ cursor: "move" } }}>{"::::"}</span>
+  <span style={{ ...style, cursor: "move" }}><DragIndicator /></span>
 ));
 
 const FocusableCell = ({ onClick, ...restProps }) => {
@@ -78,7 +89,7 @@ const columns = [
   { name: 'role', title: 'Role' },
   { name: 'action', title: 'Action' },
   { name: 'purpose', title: 'Purpose' },
-  { name: 'tests', title: 'Tests exist', getCellValue: row => row.tests.length > 0 ? 'true' : 'false' },
+  { name: 'tests', title: 'Tests', getCellValue: row => row.tests.length > 0 ? true : false },
   { name: 'drag', title: ' ' },
 ];
 
@@ -86,13 +97,27 @@ const editingStateColumnExtensions = [
   { columnName: 'tests', editingEnabled: false },
 ];
 
+const tableColumnExtensions = [
+  { columnName: 'role', width: 150, wordWrapEnabled: true },
+  { columnName: 'action', wordWrapEnabled: true },
+  { columnName: 'purpose', wordWrapEnabled: true },
+  { columnName: 'tests', width: 55, align: 'center' },
+  { columnName: 'drag', width: 40, align: 'center' },
+];
+
 export default () => {
   const stories = useSelector(state => state.stories);
   const dispatch = useDispatch();
   const [editingCells, setEditingCells] = useState([]);
   const addEmptyStory = React.useCallback(() => dispatch({ type: 'addStory' }), [dispatch]);
-  const onSortEnd = ({ oldIndex, newIndex }) =>
-    dispatch({ type: 'setStories', stories: arrayMove(stories, oldIndex, newIndex) });
+  const onSortEnd = React.useCallback(({ oldIndex, newIndex }) =>
+    dispatch({ type: 'setStories', stories: arrayMove(stories, oldIndex, newIndex) }), [dispatch, stories]);
+  const Body = React.useCallback((props) => {
+    const TableBody = SortableContainer(Table.TableBody);
+    return (
+      <TableBody {...props} onSortEnd={onSortEnd} useDragHandle />
+    );
+  }, [onSortEnd]);
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (changed) {
@@ -110,6 +135,8 @@ export default () => {
         columns={columns}
         getRowId={getRowId}
       >
+        <BooleanTypeProvider for={['tests']} />
+
         <RowDetailState />
         <EditingState
           onCommitChanges={commitChanges}
@@ -120,16 +147,12 @@ export default () => {
           columnExtensions={editingStateColumnExtensions}
         />
         <Table
+          columnExtensions={tableColumnExtensions}
           cellComponent={FocusableCell}
-          bodyComponent={({ row, ...restProps }) => {
-            const TableBody = SortableContainer(Table.TableBody);
-            return (
-              <TableBody {...restProps} onSortEnd={onSortEnd} useDragHandle />
-            );
-          }}
+          bodyComponent={Body}
           rowComponent={({ row, ...restProps }) => {
             const TableRow = SortableElement(Table.Row);
-            return <TableRow {...restProps} index={stories.indexOf(row)} />;
+            return <TableRow {...restProps} row={row} index={stories.indexOf(row)} />;
           }}  
         />
         <TableHeaderRow />
