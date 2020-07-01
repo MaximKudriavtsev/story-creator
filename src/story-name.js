@@ -22,7 +22,7 @@ export default () => {
     <TextField value={storyName} onChange={handleChange} autoFocus onBlur={onBlur} inputProps={inputProps} onKeyDown={onKeyDown} />
   ) : (
     <Tooltip title="Click to change the stories name">
-      <Typography onClick={onClick}>
+      <Typography onClick={onClick} style={{ color: '#E91E63' }} >
         {storyName}
       </Typography>
     </Tooltip>

@@ -52,7 +52,7 @@ const FocusableCell = ({ onClick, ...restProps }) => {
       </Table.Cell>
     );
   }
-  return <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />;
+  return <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} style={{ ...restProps.style, cursor: 'pointer' }} />;
 }
 
 const RowDetail = ({ row }) => {
