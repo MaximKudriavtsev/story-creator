@@ -5,6 +5,12 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import marked from 'marked';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+// import TabPanel from '@material-ui/core/TabPanel';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 // { name: 'id', title: '#id' },
 // { name: 'role', title: 'Role' },
@@ -30,9 +36,31 @@ const generateMD = (data) => {
   return result.join('\n');
 };
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-auto-tabpanel-${index}`}
+      aria-labelledby={`scrollable-auto-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
 export default () => {
   const stories = useSelector(state => state.stories);
   const markdown = generateMD(stories);
+  const [tabValue, setTabValue] = React.useState(0);
+  const handleChange = React.useCallback((event, value) => setTabValue(value), [setTabValue]);
 
   const exportMD = React.useCallback(() => {
     const filename = "data.md";
@@ -46,12 +74,20 @@ export default () => {
 
   return (
     <React.Fragment>
-        <Paper>
+      <Paper>
+        <AppBar position="static" color="default">
+          <Tabs value={tabValue} onChange={handleChange} aria-label="simple tabs example">
+            <Tab label="Markdown" />
+            <Tab label="Preview" />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={tabValue} index={0}>
           <TextField value={markdown} variant="outlined" multiline style={{ width: '100%' }} />
-        </Paper>
-        <Paper style={{ marginTop: '20px' }}>
-          <p style={{ padding: '12px' }} dangerouslySetInnerHTML={{__html: marked(markdown) }} />
-        </Paper>
+        </TabPanel>
+        <TabPanel value={tabValue} index={1}>
+          <div dangerouslySetInnerHTML={{__html: marked(markdown) }} />
+        </TabPanel>
+      </Paper>
       <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '14px' }}>
         <Button variant="outlined" color="primary" onClick={exportMD}>
           Export md file
