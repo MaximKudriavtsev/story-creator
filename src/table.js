@@ -79,7 +79,7 @@ const columns = [
   { name: 'action', title: 'Action' },
   { name: 'purpose', title: 'Purpose' },
   { name: 'tests', title: 'Tests exist', getCellValue: row => row.tests.length > 0 ? 'true' : 'false' },
-  { name: 'drag', title: '' },
+  { name: 'drag', title: ' ' },
 ];
 
 const editingStateColumnExtensions = [
