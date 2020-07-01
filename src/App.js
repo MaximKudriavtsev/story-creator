@@ -10,18 +10,21 @@ import { saveAs } from 'file-saver';
 import Export from './export';
 import Table from './table';
 import { generateMD } from './export';
+import StoryName from './story-name';
 
 function App() {
-  const stories = useSelector(state => state.stories);
+  const { stories, storyName } = useSelector(state => ({
+    stories: state.stories, storyName: state.storyName,
+  }));
   const exportMD = React.useCallback(() => {
     const filename = "data.md";
 
-    const blob = new Blob([generateMD(stories)], {
+    const blob = new Blob([generateMD(stories, storyName)], {
       type: 'text/plain;charset=utf-8'
     });
 
     saveAs(blob, filename);
-  }, [stories]);
+  }, [stories, storyName]);
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh', backgroundColor: '#ECEFF1' }}>
@@ -30,6 +33,7 @@ function App() {
           <Typography variant="h6" style={{ flexGrow: 1 }}>
             Story Creator
           </Typography>
+          <StoryName />
           <Tooltip title="Download a markdown file">
             <IconButton
               onClick={exportMD}

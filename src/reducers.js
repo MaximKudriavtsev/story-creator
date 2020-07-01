@@ -1,6 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
+const defaultStoryName = 'Untitled Stories';
+
 const initialState = {
+  storyName: defaultStoryName,
   stories: [{
     id: uuidv4(),
     role: 'Story Tailer',
@@ -32,11 +35,18 @@ const getEmptyTest = (text) => ({
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'setStoryName': {
+      if (action.storyName.trim() === '') {
+        return { ...state, storyName: defaultStoryName };
+      }
+      return { ...state, storyName: action.storyName };
+    }
     case 'setStories': {
-      return { stories: action.stories };
+      return { ...state, stories: action.stories };
     }
     case 'addStory': { // OK
       return {
+        ...state,
         stories: [...state.stories, getEmptyStory()] 
       };
     }
@@ -45,13 +55,14 @@ export default (state = initialState, action) => {
       const nextStories = state.stories.filter(row => !deletedSet.has(row.id));
 
       return {
+        ...state,
         stories: nextStories,
       };
     }
     case 'changeStory': { // OK
       const nextStories = state.stories.map(row => (action.changed[row.id] ? { ...row, ...action.changed[row.id] } : row));
       return {
-        stories: nextStories,
+        ...state, stories: nextStories,
       };
     }
     case 'addTest': { //OK
@@ -64,7 +75,7 @@ export default (state = initialState, action) => {
       }, []);
 
       return {
-        stories: nextStories,
+        ...state, stories: nextStories,
       };
     }
     case 'deleteTest': { // OK
@@ -75,7 +86,7 @@ export default (state = initialState, action) => {
       });
 
       return {
-        stories: nextStories,
+        ...state, stories: nextStories,
       };
     }
     default:

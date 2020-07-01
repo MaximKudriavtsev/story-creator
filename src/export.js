@@ -17,8 +17,8 @@ import Box from '@material-ui/core/Box';
 // { name: 'action', title: 'Action' },
 // { name: 'purpose', title: 'Purpose' },
 
-export const generateMD = (data) => {
-  const result = ['#### User Stories\n'];
+export const generateMD = (data, name) => {
+  const result = [`## ${name}\n\n#### User Stories\n`];
 
   data.forEach((story, id) => {
     result.push(`${id + 1}. As a ${story.role}, I want to be able to ${story.action}, so that I can ${story.purpose}.`);
@@ -57,8 +57,10 @@ function TabPanel(props) {
 }
 
 export default () => {
-  const stories = useSelector(state => state.stories);
-  const markdown = generateMD(stories);
+  const { stories, storyName } = useSelector(state => ({
+    stories: state.stories, storyName: state.storyName,
+  }));
+  const markdown = generateMD(stories, storyName);
   const [tabValue, setTabValue] = React.useState(0);
   const handleChange = React.useCallback((event, value) => setTabValue(value), [setTabValue]);
 
