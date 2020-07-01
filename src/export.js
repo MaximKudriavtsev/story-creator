@@ -44,11 +44,9 @@ export default () => {
 
   return (
     <React.Fragment>
-      <p style={{ marginTop: '21px' }}>
         <Paper>
           <TextField value={generateMD(stories)} variant="outlined" multiline style={{ width: '100%' }} />
         </Paper>
-      </p>
       <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '14px' }}>
         <Button variant="outlined" color="primary" onClick={exportMD}>
           Export md file
