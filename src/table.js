@@ -19,9 +19,13 @@ import {
   SortableElement,
   arrayMove
 } from "react-sortable-hoc";
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
 import Done from '@material-ui/icons/Done';
 import Close from '@material-ui/icons/Close';
 import DragIndicator from '@material-ui/icons/DragIndicator';
+import PostAdd from '@material-ui/icons/PostAdd';
+import Delete from '@material-ui/icons/Delete';
 
 const getRowId = row => row.id;
 
@@ -35,7 +39,9 @@ const BooleanTypeProvider = props => (
 );
 
 const DragHandle = SortableHandle(({ style }) => (
-  <span style={{ ...style, cursor: "move" }}><DragIndicator /></span>
+  <Tooltip title="Drag to reorder" enterDelay={400}>
+    <span style={{ ...style, cursor: "move" }}><DragIndicator /></span>
+  </Tooltip>
 ));
 
 const FocusableCell = ({ onClick, ...restProps }) => {
@@ -82,6 +88,48 @@ const RowDetail = ({ row }) => {
         </Button>
       </div>
     </div>
+  );
+};
+
+const AddButton = ({ onExecute }) => (
+  <Tooltip title="Create a story" enterDelay={500}>
+    <IconButton
+      style={{ textAlign: 'center' }}
+      onClick={onExecute}
+    >
+      <PostAdd
+        style={{ color: '#E91E63' }}
+      />
+    </IconButton>
+  </Tooltip>
+);
+
+const DeleteButton = ({ onExecute }) => (
+  <Tooltip title="Delete the story" enterDelay={500}>
+    <IconButton
+      onClick={() => {
+        // eslint-disable-next-line
+        if (window.confirm('Are you sure you want to delete this story?')) {
+          onExecute();
+        }
+      }}
+    >
+      <Delete />
+    </IconButton>
+  </Tooltip>
+);
+
+const commandComponents = {
+  add: AddButton,
+  delete: DeleteButton,
+};
+
+const Command = ({ id, onExecute }) => {
+  const CommandButton = commandComponents[id];
+  return (
+    <CommandButton
+      onExecute={onExecute}
+    />
   );
 };
 
@@ -158,8 +206,10 @@ export default () => {
         <TableHeaderRow />
         <TableInlineCellEditing selectTextOnEditStart />
         <TableEditColumn
+          width={70}
           showAddCommand
           showDeleteCommand
+          commandComponent={Command}
         />
         <TableRowDetail
           contentComponent={RowDetail}
