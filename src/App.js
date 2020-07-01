@@ -13,18 +13,20 @@ import { generateMD } from './export';
 import StoryName from './story-name';
 
 function App() {
-  const { stories, storyName } = useSelector(state => ({
-    stories: state.stories, storyName: state.storyName,
+  const { stories, storyName, goals } = useSelector(state => ({
+    stories: state.stories,
+    storyName: state.storyName,
+    goals: state.goals,
   }));
   const exportMD = React.useCallback(() => {
     const filename = "data.md";
 
-    const blob = new Blob([generateMD(stories, storyName)], {
+    const blob = new Blob([generateMD(stories, storyName, goals)], {
       type: 'text/plain;charset=utf-8'
     });
 
     saveAs(blob, filename);
-  }, [stories, storyName]);
+  }, [stories, storyName, goals]);
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh', backgroundColor: '#ECEFF1' }}>

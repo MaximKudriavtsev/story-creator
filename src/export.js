@@ -1,6 +1,6 @@
 import * as React from 'react';
 // import { saveAs } from 'file-saver';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
@@ -17,8 +17,8 @@ import Box from '@material-ui/core/Box';
 // { name: 'action', title: 'Action' },
 // { name: 'purpose', title: 'Purpose' },
 
-export const generateMD = (data, name) => {
-  const result = [`## ${name}\n\n#### User Stories\n`];
+export const generateMD = (data, name, goals) => {
+  const result = [`## ${name}\n\n#### Goals\n\n${goals}\n\n#### User Stories\n`];
 
   data.forEach((story, id) => {
     result.push(`${id + 1}. As a ${story.role}, I want to be able to ${story.action}, so that I can ${story.purpose}.`);
@@ -57,12 +57,16 @@ function TabPanel(props) {
 }
 
 export default () => {
-  const { stories, storyName } = useSelector(state => ({
-    stories: state.stories, storyName: state.storyName,
+  const { stories, storyName, goals } = useSelector(state => ({
+    stories: state.stories,
+    storyName: state.storyName,
+    goals: state.goals,
   }));
-  const markdown = generateMD(stories, storyName);
+  const dispatch = useDispatch();
   const [tabValue, setTabValue] = React.useState(0);
   const handleChange = React.useCallback((event, value) => setTabValue(value), [setTabValue]);
+  const goalsChange = React.useCallback(e => dispatch({ type: 'setGoals', goals: e.target.value }), [dispatch]);
+  const markdown = generateMD(stories, storyName, goals);
 
   // const exportMD = React.useCallback(() => {
   //   const filename = "data.md";
@@ -81,6 +85,7 @@ export default () => {
           <Tabs value={tabValue} onChange={handleChange} aria-label="simple tabs example">
             <Tab label="Markdown" />
             <Tab label="Preview" />
+            <Tab label="Goals" />
           </Tabs>
         </AppBar>
         <TabPanel value={tabValue} index={0}>
@@ -88,6 +93,9 @@ export default () => {
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
           <div dangerouslySetInnerHTML={{__html: marked(markdown) }} />
+        </TabPanel>
+        <TabPanel value={tabValue} index={2}>
+          <TextField value={goals} onChange={goalsChange} variant="outlined" multiline style={{ width: '100%' }} />
         </TabPanel>
       </Paper>
       {/* <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '14px' }}>
