@@ -6,8 +6,7 @@ import marked from 'marked';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import TabPanel from './tab-panel';
 
 export const generateMD = (data, name, goals) => {
   const result = [`## ${name}\n\n#### Goals\n\n${goals}\n\n#### User Stories\n`];
@@ -27,26 +26,6 @@ export const generateMD = (data, name, goals) => {
 
   return result.join('\n');
 };
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
 
 export default () => {
   const { stories, storyName, goals } = useSelector(state => ({
