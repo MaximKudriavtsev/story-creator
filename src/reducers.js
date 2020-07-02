@@ -5,6 +5,7 @@ const defaultStoryName = 'Untitled Stories';
 const initialState = {
   storyName: defaultStoryName,
   goals: '',
+  additional: '',
   stories: [{
     id: uuidv4(),
     role: 'Story Tailer',
@@ -38,6 +39,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case 'setGoals': {
       return { ...state, goals: action.goals };
+    }
+    case 'setAdditional': {
+      return { ...state, additional: action.additional };
     }
     case 'setStoryName': {
       if (action.storyName.trim() === '') {

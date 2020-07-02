@@ -12,7 +12,6 @@ import {
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
-import Paper from "@material-ui/core/Paper";
 import {
   SortableContainer,
   SortableHandle,

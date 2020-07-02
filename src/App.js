@@ -9,24 +9,25 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import { saveAs } from 'file-saver';
 import PreviewPart from './preview-part';
 import EditablePart from './editable-part';
-import { generateMD } from './preview-part';
+import convertToMD from './utils/convert-to-md';
 import StoryName from './story-name';
 
 function App() {
-  const { stories, storyName, goals } = useSelector(state => ({
+  const { stories, storyName, goals, additional } = useSelector(state => ({
     stories: state.stories,
     storyName: state.storyName,
     goals: state.goals,
+    additional: state.additional,
   }));
   const exportMD = React.useCallback(() => {
     const filename = "data.md";
 
-    const blob = new Blob([generateMD(stories, storyName, goals)], {
+    const blob = new Blob([convertToMD(stories, storyName, goals, additional)], {
       type: 'text/plain;charset=utf-8'
     });
 
     saveAs(blob, filename);
-  }, [stories, storyName, goals]);
+  }, [stories, storyName, goals, additional]);
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh', backgroundColor: '#ECEFF1' }}>

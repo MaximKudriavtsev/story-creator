@@ -7,35 +7,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from './tab-panel';
-
-export const generateMD = (data, name, goals) => {
-  const result = [`## ${name}\n\n#### Goals\n\n${goals}\n\n#### User Stories\n`];
-
-  data.forEach((story, id) => {
-    result.push(`${id + 1}. As a ${story.role}, I want to be able to ${story.action}, so that I can ${story.purpose}.`);
-  });
-
-  result.push('\n#### Acceptance Criteria & Tests');
-  result.push('\n| ID | Criteria | Test |');
-  result.push('| -- | :------- | :--- |');
-
-  data.forEach((story, id) => {
-    const tableLine = `| ${id + 1} | Capability to ${story.action}. | ${story.tests.map((test, testId) => `${testId + 1}. ${test.text}. `).join('')} |`;
-    result.push(tableLine);
-  });
-
-  return result.join('\n');
-};
+import convertToMD from './utils/convert-to-md';
 
 export default () => {
-  const { stories, storyName, goals } = useSelector(state => ({
+  const { stories, storyName, goals, additional } = useSelector(state => ({
     stories: state.stories,
     storyName: state.storyName,
     goals: state.goals,
+    additional: state.additional,
   }));
   const [tabValue, setTabValue] = React.useState(0);
   const handleChange = React.useCallback((event, value) => setTabValue(value), [setTabValue]);
-  const markdown = generateMD(stories, storyName, goals);
+  const markdown = convertToMD(stories, storyName, goals, additional);
 
   return (
     <Paper>
