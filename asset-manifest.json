@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/story-creator/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/story-creator/static/js/main.4cd3fa54.chunk.js",
-    "main.js.map": "/story-creator/static/js/main.4cd3fa54.chunk.js.map",
+    "main.js": "/story-creator/static/js/main.9f0e98cc.chunk.js",
+    "main.js.map": "/story-creator/static/js/main.9f0e98cc.chunk.js.map",
     "runtime-main.js": "/story-creator/static/js/runtime-main.9a939460.js",
     "runtime-main.js.map": "/story-creator/static/js/runtime-main.9a939460.js.map",
-    "static/js/2.61e1999a.chunk.js": "/story-creator/static/js/2.61e1999a.chunk.js",
-    "static/js/2.61e1999a.chunk.js.map": "/story-creator/static/js/2.61e1999a.chunk.js.map",
+    "static/js/2.450d1aa0.chunk.js": "/story-creator/static/js/2.450d1aa0.chunk.js",
+    "static/js/2.450d1aa0.chunk.js.map": "/story-creator/static/js/2.450d1aa0.chunk.js.map",
     "index.html": "/story-creator/index.html",
-    "precache-manifest.c76908d5af5d64861e6308a1a474acdd.js": "/story-creator/precache-manifest.c76908d5af5d64861e6308a1a474acdd.js",
+    "precache-manifest.af71b923b16bbc92358598801e92383b.js": "/story-creator/precache-manifest.af71b923b16bbc92358598801e92383b.js",
     "service-worker.js": "/story-creator/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/story-creator/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.61e1999a.chunk.js.LICENSE.txt": "/story-creator/static/js/2.61e1999a.chunk.js.LICENSE.txt"
+    "static/js/2.450d1aa0.chunk.js.LICENSE.txt": "/story-creator/static/js/2.450d1aa0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9a939460.js",
-    "static/js/2.61e1999a.chunk.js",
+    "static/js/2.450d1aa0.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.4cd3fa54.chunk.js"
+    "static/js/main.9f0e98cc.chunk.js"
   ]
 }
