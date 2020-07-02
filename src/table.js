@@ -177,44 +177,42 @@ export default () => {
   };
 
   return (
-    <Paper>
-      <Grid
-        rows={stories}
-        columns={columns}
-        getRowId={getRowId}
-      >
-        <BooleanTypeProvider for={['tests']} />
+    <Grid
+      rows={stories}
+      columns={columns}
+      getRowId={getRowId}
+    >
+      <BooleanTypeProvider for={['tests']} />
 
-        <RowDetailState />
-        <EditingState
-          onCommitChanges={commitChanges}
-          editingCells={editingCells}
-          onEditingCellsChange={setEditingCells}
-          addedRows={[]}
-          onAddedRowsChange={addEmptyStory}
-          columnExtensions={editingStateColumnExtensions}
-        />
-        <Table
-          columnExtensions={tableColumnExtensions}
-          cellComponent={FocusableCell}
-          bodyComponent={Body}
-          rowComponent={({ row, ...restProps }) => {
-            const TableRow = SortableElement(Table.Row);
-            return <TableRow {...restProps} row={row} index={stories.indexOf(row)} />;
-          }}  
-        />
-        <TableHeaderRow />
-        <TableInlineCellEditing selectTextOnEditStart />
-        <TableEditColumn
-          width={70}
-          showAddCommand
-          showDeleteCommand
-          commandComponent={Command}
-        />
-        <TableRowDetail
-          contentComponent={RowDetail}
-        />
-      </Grid>
-    </Paper>
+      <RowDetailState />
+      <EditingState
+        onCommitChanges={commitChanges}
+        editingCells={editingCells}
+        onEditingCellsChange={setEditingCells}
+        addedRows={[]}
+        onAddedRowsChange={addEmptyStory}
+        columnExtensions={editingStateColumnExtensions}
+      />
+      <Table
+        columnExtensions={tableColumnExtensions}
+        cellComponent={FocusableCell}
+        bodyComponent={Body}
+        rowComponent={({ row, ...restProps }) => {
+          const TableRow = SortableElement(Table.Row);
+          return <TableRow {...restProps} row={row} index={stories.indexOf(row)} />;
+        }}  
+      />
+      <TableHeaderRow />
+      <TableInlineCellEditing selectTextOnEditStart />
+      <TableEditColumn
+        width={70}
+        showAddCommand
+        showDeleteCommand
+        commandComponent={Command}
+      />
+      <TableRowDetail
+        contentComponent={RowDetail}
+      />
+    </Grid>
   );
 };

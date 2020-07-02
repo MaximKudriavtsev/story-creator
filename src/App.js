@@ -7,9 +7,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import { saveAs } from 'file-saver';
-import Export from './export';
-import Table from './table';
-import { generateMD } from './export';
+import PreviewPart from './preview-part';
+import EditablePart from './editable-part';
+import { generateMD } from './preview-part';
 import StoryName from './story-name';
 
 function App() {
@@ -50,10 +50,10 @@ function App() {
       </h3> */}
       <div style={{ display: 'flex' }}>
         <div style={{ width: '55%', padding: '16px' }}>
-          <Table />
+          <EditablePart />
         </div>
         <div style={{ width: '45%', padding: '16px', paddingLeft: '0px' }}>
-          <Export />
+          <PreviewPart />
         </div>
       </div>
     </div>
