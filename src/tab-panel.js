@@ -6,6 +6,7 @@ export default ({ children, value, index, padding = 3 }) => (
   <div
     hidden={value !== index}
     id={`scrollable-auto-tabpanel-${index}`}
+    style={{ maxHeight: '85vh', overflow: 'auto' }}
   >
     {value === index && (
       <Box p={padding}>
