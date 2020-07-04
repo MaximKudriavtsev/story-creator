@@ -1,16 +1,15 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 export default ({ children, value, index, padding = 3 }) => (
   <div
+    id={index}
     hidden={value !== index}
-    id={`scrollable-auto-tabpanel-${index}`}
     style={{ maxHeight: '85vh', overflow: 'auto' }}
   >
     {value === index && (
       <Box p={padding}>
-        <Typography>{children}</Typography>
+        {children}
       </Box>
     )}
   </div>

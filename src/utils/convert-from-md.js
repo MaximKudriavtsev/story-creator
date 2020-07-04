@@ -55,7 +55,7 @@ export const convertFromMD = (fileString) => {
           isTest = true;
         }
         if (isTest) {
-          const [lineIndex, __, tests] = testLine.split(' | ');
+          const [lineIndex, , tests] = testLine.split(' | ');
           const storyIndex = Number(lineIndex.substring(2)) - 1;
           
           for (let i = 1; tests.indexOf(`${i}. `) > -1; i++) {

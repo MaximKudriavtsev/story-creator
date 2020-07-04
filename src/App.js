@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PublishIcon from '@material-ui/icons/Publish';
 import Tooltip from '@material-ui/core/Tooltip';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import { saveAs } from 'file-saver';
 import PreviewPart from './preview-part';
 import EditablePart from './editable-part';
@@ -32,7 +33,8 @@ function App() {
     saveAs(blob, filename);
   }, [stories, storyName, goals, additional]);
   const openDialog = React.useCallback(() => dispatch({ type: 'setDialog', value: true }), [dispatch]);
-
+  const resetData = React.useCallback(() => dispatch({ type: 'resetData' }), [dispatch]);
+  
   return (
     <div className="App" style={{ width: '100vw', height: '100vh', backgroundColor: '#ECEFF1' }}>
       <AppBar position="static" color="default">
@@ -53,6 +55,13 @@ function App() {
               onClick={exportMD}
             >
               <GetAppIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Reset data">
+            <IconButton
+              onClick={resetData}
+            >
+              <RotateLeftIcon />
             </IconButton>
           </Tooltip>
         </Toolbar>

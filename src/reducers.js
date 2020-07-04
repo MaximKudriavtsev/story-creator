@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import Cookies from 'js-cookie'
 
 const defaultStoryName = 'Untitled Stories';
 
@@ -36,47 +37,61 @@ const getEmptyTest = (text) => ({
   text,
 });
 
+const getInitialState = () => {
+  const state = Cookies.get('state');
+  if(state) return JSON.parse(state);
+  return initialState;
+};
 
-export default (state = initialState, action) => {
+const saveToCookies = (state) => {
+  Cookies.set('state', state, { sameSite: 'None' });
+  return state;
+};
+
+export default (state = getInitialState(), action) => {
   switch (action.type) {
+    case 'resetData': {
+      Cookies.remove('state');
+      return initialState;
+    }
     case 'setState': {
-      return { ...state, storyName: action.name, stories: action.stories, goals: action.goals, additional: action.additional };
+      return saveToCookies({ ...state, storyName: action.name, stories: action.stories, goals: action.goals, additional: action.additional });
     }
     case 'setGoals': {
-      return { ...state, goals: action.goals };
+      return saveToCookies({ ...state, goals: action.goals });
     }
     case 'setAdditional': {
-      return { ...state, additional: action.additional };
+      return saveToCookies({ ...state, additional: action.additional });
     }
     case 'setStoryName': {
       if (action.storyName.trim() === '') {
-        return { ...state, storyName: defaultStoryName };
+        return saveToCookies({ ...state, storyName: defaultStoryName });
       }
-      return { ...state, storyName: action.storyName };
+      return saveToCookies({ ...state, storyName: action.storyName });
     }
     case 'setStories': {
-      return { ...state, stories: action.stories };
+      return saveToCookies({ ...state, stories: action.stories });
     }
     case 'addStory': { // OK
-      return {
+      return saveToCookies({
         ...state,
         stories: [...state.stories, getEmptyStory()] 
-      };
+      });
     }
     case 'deleteStory': { // OK
       const deletedSet = new Set(action.deleted);
       const nextStories = state.stories.filter(row => !deletedSet.has(row.id));
 
-      return {
+      return saveToCookies({
         ...state,
         stories: nextStories,
-      };
+      });
     }
     case 'changeStory': { // OK
       const nextStories = state.stories.map(row => (action.changed[row.id] ? { ...row, ...action.changed[row.id] } : row));
-      return {
+      return saveToCookies({
         ...state, stories: nextStories,
-      };
+      });
     }
     case 'addTest': { //OK
       const nextStories = state.stories.reduce((acc, story) => {
@@ -87,9 +102,9 @@ export default (state = initialState, action) => {
         return acc;
       }, []);
 
-      return {
+      return saveToCookies({
         ...state, stories: nextStories,
-      };
+      });
     }
     case 'deleteTest': { // OK
       const nextStories = state.stories.map((story) => {
@@ -98,9 +113,9 @@ export default (state = initialState, action) => {
         } return story;
       });
 
-      return {
+      return saveToCookies({
         ...state, stories: nextStories,
-      };
+      });
     }
     case 'setDialog': {
       return { ...state, isDialogOpen: action.value };
