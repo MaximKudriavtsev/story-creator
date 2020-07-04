@@ -19,6 +19,8 @@ const initialState = {
       text: 'Enjoy 😃',
     }]
   }],
+
+  isDialogOpen: false,
 }
 
 const getEmptyStory = () => ({
@@ -37,6 +39,9 @@ const getEmptyTest = (text) => ({
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'setState': {
+      return { ...state, storyName: action.name, stories: action.stories, goals: action.goals, additional: action.additional };
+    }
     case 'setGoals': {
       return { ...state, goals: action.goals };
     }
@@ -96,6 +101,9 @@ export default (state = initialState, action) => {
       return {
         ...state, stories: nextStories,
       };
+    }
+    case 'setDialog': {
+      return { ...state, isDialogOpen: action.value };
     }
     default:
       return state;

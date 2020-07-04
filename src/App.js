@@ -1,18 +1,21 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import PublishIcon from '@material-ui/icons/Publish';
 import Tooltip from '@material-ui/core/Tooltip';
-import SaveAlt from '@material-ui/icons/SaveAlt';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import { saveAs } from 'file-saver';
 import PreviewPart from './preview-part';
 import EditablePart from './editable-part';
 import convertToMD from './utils/convert-to-md';
 import StoryName from './story-name';
+import UploadMenu from './upload-menu';
 
 function App() {
+  const dispatch = useDispatch();
   const { stories, storyName, goals, additional } = useSelector(state => ({
     stories: state.stories,
     storyName: state.storyName,
@@ -28,6 +31,7 @@ function App() {
 
     saveAs(blob, filename);
   }, [stories, storyName, goals, additional]);
+  const openDialog = React.useCallback(() => dispatch({ type: 'setDialog', value: true }), [dispatch]);
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh', backgroundColor: '#ECEFF1' }}>
@@ -37,11 +41,18 @@ function App() {
             Story Creator
           </Typography>
           <StoryName />
+          <Tooltip title="Upload a markdown file">
+            <IconButton
+              onClick={openDialog}
+            >
+              <PublishIcon />
+            </IconButton>
+          </Tooltip>
           <Tooltip title="Download a markdown file">
             <IconButton
               onClick={exportMD}
             >
-              <SaveAlt />
+              <GetAppIcon />
             </IconButton>
           </Tooltip>
         </Toolbar>
@@ -57,6 +68,8 @@ function App() {
           <PreviewPart />
         </div>
       </div>
+
+      <UploadMenu />
     </div>
   );
 }
