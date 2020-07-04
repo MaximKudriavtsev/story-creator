@@ -15,7 +15,7 @@ export const convertFromMD = (fileString) => {
   const stories = [];
 
   contentLines.forEach((line, index) => {
-    if (line.indexOf('##') > -1) { // name
+    if (!name && line.indexOf('##') > -1) { // name
       name = line.replace('##', '').trim();
     }
     if (line.indexOf('#### Goals') > -1) { // goals

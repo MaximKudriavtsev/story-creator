@@ -25,6 +25,12 @@ describe('#convertFromMD', () => {
 
       expect(convertFromMD(test).name).toBe('File Name');
     });
+
+    it('should save name only once', () => {
+      const test = `## File Name\n#### Goals`;
+
+      expect(convertFromMD(test).name).toBe('File Name');
+    });
   });
 
   describe('Goals', () => {
