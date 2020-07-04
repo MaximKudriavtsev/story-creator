@@ -13,12 +13,16 @@ import { convertFromMD } from './utils/convert-from-md';
 export default function UploadMenu() {
   const isOpen = useSelector(state => state.isDialogOpen);
   const dispatch = useDispatch();
-  const handleClose = React.useCallback(() => dispatch({ type: 'setDialog', value: false }), [dispatch]);
   const [text, setText] = React.useState('');
+  const handleClose = React.useCallback(() => {
+    dispatch({ type: 'setDialog', value: false });
+    setText('');
+  }, [dispatch, setText]);
   const handleUpload = React.useCallback(() => {
     dispatch({ type: 'setState', ...convertFromMD(text) });
     handleClose();
-  }, [dispatch, text, handleClose]);
+    setText('');
+  }, [dispatch, text, handleClose, setText]);
   const textChange = React.useCallback(e => setText(e.target.value), [setText]);
 
   return (
