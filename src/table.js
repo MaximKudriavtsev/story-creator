@@ -62,6 +62,9 @@ const RowDetail = ({ row }) => {
     dispatch({ type: 'addTest', storyId: row.id, text });
   }, [row, text, dispatch]);
   const deleteTest = React.useCallback((testId) => dispatch({ type: 'deleteTest', testId, storyId: row.id }), [row, dispatch]);
+  const onKeyDown = React.useCallback((e) => {
+    if (e.keyCode === 13 && !!text.trim()) addTest();
+  }, [addTest, text]);
 
   return (
     <div>
@@ -81,7 +84,7 @@ const RowDetail = ({ row }) => {
       </div>
 
       <div>
-        <TextField variant="filled" value={text} onChange={e => setText(e.target.value)} />
+        <TextField variant="filled" value={text} onChange={e => setText(e.target.value)} onKeyDown={onKeyDown} autoFocus />
         <Button color="primary" onClick={addTest}>
           Add
         </Button>

@@ -32,10 +32,10 @@ export default () => {
         <Table />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <TextField value={goals} onChange={goalsChange} variant="outlined" multiline style={{ width: '100%' }} placeholder="Goals here..." />
+        <TextField value={goals} onChange={goalsChange} autoFocus variant="outlined" multiline style={{ width: '100%' }} placeholder="Goals here..." />
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-        <TextField value={additional} onChange={additionalChange} variant="outlined" multiline style={{ width: '100%' }} placeholder="Additional data here..." />
+        <TextField value={additional} onChange={additionalChange} autoFocus variant="outlined" multiline style={{ width: '100%' }} placeholder="Additional data here..." />
       </TabPanel>
     </Paper>
   );
