@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 
 const onFocus = e => e.target.select();
 const inputProps = { onFocus };
 
-export const EditableChip = ({ label, onDelete, testId, storyId, ...restProps }) => {
-  const dispatch = useDispatch();
+export const EditableChip = ({ label, onDelete, testId, storyId, commitChanges }) => {
+  // const dispatch = useDispatch();
   const [value, setValue] = React.useState(label);
   const handleChange = React.useCallback((event) => setValue(event.target.value), [setValue]);
   const [editable, setEditable] = React.useState(false);
-  const commitChanges = React.useCallback(() => dispatch({ type: 'setTest', storyId, testId, value }), [dispatch, value, storyId, testId]);
+  // const commitChanges = React.useCallback(() => dispatch({ type: 'setTest', storyId, testId, value }), [dispatch, value, storyId, testId]);
   const onBlur = React.useCallback(() => {
     setEditable(false);
     commitChanges({ testId, storyId, value });
@@ -20,10 +20,22 @@ export const EditableChip = ({ label, onDelete, testId, storyId, ...restProps })
     if (e.keyCode === 13) onBlur();
   }, [onBlur]);
   const onClick = React.useCallback(() => setEditable(true), []);
+  const chipRef = React.useRef();
+  React.useEffect(() => {
+    chipRef.current.focus();
+  }, []);
 
   return editable ? (
-    <TextField value={value} onChange={handleChange} autoFocus onBlur={onBlur} inputProps={inputProps} onKeyDown1={onKeyDown} />
+    <TextField value={value} onChange={handleChange} autoFocus onBlur={onBlur} inputProps={inputProps} onKeyDown={onKeyDown} /> 
   ) : (
-    <Chip {...restProps} label={label} onDelete={onDelete} onClick={onClick} />
+    <Chip
+      ref={chipRef}
+      label={label}
+      onDelete={onDelete}
+      variant={onDelete ? 'default' : 'outlined'}
+      onClick={onClick}
+      style={{ marginRight: '8px' }}
+      color={onDelete ? 'default' : 'secondary'}
+    />
   );
 };
