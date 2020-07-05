@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { useDispatch } from 'react-redux';
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 
@@ -7,11 +6,9 @@ const onFocus = e => e.target.select();
 const inputProps = { onFocus };
 
 export const EditableChip = ({ label, onDelete, testId, storyId, commitChanges }) => {
-  // const dispatch = useDispatch();
   const [value, setValue] = React.useState(label);
   const handleChange = React.useCallback((event) => setValue(event.target.value), [setValue]);
   const [editable, setEditable] = React.useState(false);
-  // const commitChanges = React.useCallback(() => dispatch({ type: 'setTest', storyId, testId, value }), [dispatch, value, storyId, testId]);
   const onBlur = React.useCallback(() => {
     setEditable(false);
     commitChanges({ testId, storyId, value });
