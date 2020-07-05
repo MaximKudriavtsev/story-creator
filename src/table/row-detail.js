@@ -11,25 +11,23 @@ export const RowDetail = ({ row }) => {
   const commitChanges = React.useCallback(({ storyId, testId, value }) => dispatch({ type: 'setTest', storyId, testId, value }), [dispatch]);
 
   return (
-    <div>
-      <div style={{ paddingBottom: '8px' }}>
-        {row.tests.length ? row.tests.map(test => (
-          <EditableChip
-            key={test.id}
-            testId={test.id}
-            storyId={row.id}
-            label={test.text}
-            onDelete={() => deleteTest(test.id)}
-            commitChanges={commitChanges}
-          />
-        )) : null}
+    <div style={{ paddingBottom: '8px' }}>
+      {row.tests.length ? row.tests.map(test => (
+        <EditableChip
+          key={test.id}
+          testId={test.id}
+          storyId={row.id}
+          label={test.text}
+          onDelete={() => deleteTest(test.id)}
+          commitChanges={commitChanges}
+        />
+      )) : null}
         <EditableChip
           testId={'test.id'}
           storyId={'row.id'}
           label="+"
           commitChanges={addTest}
         />
-      </div>
     </div>
   );
 };

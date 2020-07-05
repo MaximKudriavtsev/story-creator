@@ -23,7 +23,15 @@ export const EditableChip = ({ label, onDelete, testId, storyId, commitChanges }
   }, []);
 
   return editable ? (
-    <TextField value={value} onChange={handleChange} autoFocus onBlur={onBlur} inputProps={inputProps} onKeyDown={onKeyDown} /> 
+    <TextField
+      value={value}
+      onChange={handleChange}
+      autoFocus
+      onBlur1={onBlur}
+      inputProps={inputProps}
+      onKeyDown={onKeyDown}
+      style={{ margin: '8px 8px 0 0' }}
+    />
   ) : (
     <Chip
       ref={chipRef}
@@ -31,7 +39,7 @@ export const EditableChip = ({ label, onDelete, testId, storyId, commitChanges }
       onDelete={onDelete}
       variant={onDelete ? 'default' : 'outlined'}
       onClick={onClick}
-      style={{ marginRight: '8px' }}
+      style={{ margin: '8px 8px 0 0' }}
       color={onDelete ? 'default' : 'secondary'}
     />
   );
