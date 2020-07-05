@@ -117,6 +117,21 @@ export default (state = getInitialState(), action) => {
         ...state, stories: nextStories,
       });
     }
+    case 'setTest': {
+      const nextStories = state.stories.map((story) => {
+        if (story.id === action.storyId) {
+          story.tests = story.tests.map((test) => {
+            if (test.id === action.testId) {
+              test.text = action.value;
+            } return test;
+          });
+        } return story;
+      });
+
+      return saveToCookies({
+        ...state, stories: nextStories,
+      });
+    }
     case 'setDialog': {
       return { ...state, isDialogOpen: action.value };
     }
