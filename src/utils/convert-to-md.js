@@ -12,7 +12,7 @@ export default (data, name, goals, additional) => {
   result.push('| :--: | :------- | :--- |');
 
   data.forEach((story, id) => {
-    const tableLine = `| ${id + 1} | Capability to ${story.action.trim()}. | ${story.tests.map((test, testId) => `${testId + 1}. ${test.text.trim()}. `).join('')} |`;
+    const tableLine = `| ${id + 1} | Capability to ${story.action.trim()}. | ${story.tests.map((test, testId) => `${testId + 1}. ${test.text.trim()}. `).join('')}|`;
     result.push(tableLine);
   });
 
