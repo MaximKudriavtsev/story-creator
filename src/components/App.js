@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from "gatsby"
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -11,9 +12,10 @@ import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import { saveAs } from 'file-saver';
 import PreviewPart from './preview-part';
 import EditablePart from './editable-part';
-import convertToMD from './utils/convert-to-md';
+import convertToMD from '../utils/convert-to-md';
 import StoryName from './story-name';
 import UploadMenu from './upload-menu';
+import SEO from "./seo";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,10 +39,13 @@ function App() {
   
   return (
     <div className="App" style={{ width: '100vw', height: '100vh', backgroundColor: '#ECEFF1' }}>
+      <SEO title="Create User Story" />
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
-            Story Creator
+            <Link to="/" style={{ textDecoration: 'none', color: 'rgb(96, 96, 96)' }}>
+              Story Creator
+            </Link>
           </Typography>
           <StoryName />
           <Tooltip title="Upload a markdown file">

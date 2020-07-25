@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { convertFromMD } from './utils/convert-from-md';
+import { convertFromMD } from '../utils/convert-from-md';
 
 export default function UploadMenu() {
   const isOpen = useSelector(state => state.isDialogOpen);

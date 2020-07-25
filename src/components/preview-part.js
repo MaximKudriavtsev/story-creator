@@ -7,7 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from './tab-panel';
-import convertToMD from './utils/convert-to-md';
+import convertToMD from '../utils/convert-to-md';
 
 export default () => {
   const { stories, storyName, goals, additional } = useSelector(state => ({
