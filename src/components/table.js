@@ -42,14 +42,15 @@ const DragHandle = SortableHandle(({ style }) => (
 ));
 
 const FocusableCell = ({ onClick, ...restProps }) => {
+  const width = restProps.column.name === 'drag' ? 50 : 195;
   if (restProps.column.name === "drag") {
     return (
-      <Table.Cell {...restProps}>
+      <Table.Cell {...restProps} style={{ width }}>
         <DragHandle />
       </Table.Cell>
     );
   }
-  return <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} style={{ ...restProps.style, cursor: 'pointer' }} />;
+  return <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} style={{ ...restProps.style, cursor: 'pointer', width }} />;
 }
 
 const AddButton = ({ onExecute }) => (
