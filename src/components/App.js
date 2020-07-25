@@ -26,7 +26,7 @@ function App() {
     additional: state.additional,
   }));
   const exportMD = React.useCallback(() => {
-    const filename = "data.md";
+    const filename = `${storyName}.md`;
 
     const blob = new Blob([convertToMD(stories, storyName, goals, additional)], {
       type: 'text/plain;charset=utf-8'
