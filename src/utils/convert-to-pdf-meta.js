@@ -27,7 +27,7 @@ export const convertToPdfMeta = (storyName, goals, additional, stories) => {
   
   if (!!goals && goals.length) {
     content.push({ text: 'Goals', style: 'subheader' });
-    content.push({ text: goals, style: 'subheader' });
+    content.push({ text: goals });
   }
   
   content.push({ text: 'User Stories', style: 'subheader' });
