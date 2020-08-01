@@ -29,7 +29,8 @@
     "react-redux": "^7.2.1",
     "react-sortable-hoc": "^1.11.0",
     "marked": "^1.1.1",
-    "js-cookie": "^2.2.1"
+    "js-cookie": "^2.2.1",
+    "pdfmake": "^0.1.68"
   },
   "devDependencies": {
     "prettier": "2.0.5",

@@ -32,7 +32,7 @@ export default () => {
         <TextField value={markdown} variant="outlined" multiline style={{ width: '100%' }} />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <div dangerouslySetInnerHTML={{__html: marked(markdown) }} />
+        <div dangerouslySetInnerHTML={{ __html: marked(markdown) }} />
       </TabPanel>
     </Paper>
   );
