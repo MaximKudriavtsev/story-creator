@@ -36,7 +36,7 @@ export const convertToPdfMeta = (storyName, goals, additional, stories) => {
     ol: stories.reduce((acc, story) => {
       acc.push(`As a ${story.role}, I want to be able to ${story.action} so that I can ${story.purpose}.`);
       if (story.imgUrl) {
-        acc.push({ image: story.id, fit: [720, 720], alignment: 'center' });
+        acc.push({ image: story.id, fit: [520, 520], alignment: 'center' });
         images = { ...images, [story.id]: story.imgUrl };
       }
       return acc;

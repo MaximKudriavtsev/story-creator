@@ -41,7 +41,7 @@ export const ImageLoader = ({ row }) => {
   }, [addImage]);
   
   if (row.loading) {
-    return <CircularProgress color="secondary" />;
+    return <CircularProgress color="secondary" size={30} />;
   }
 
   return (
