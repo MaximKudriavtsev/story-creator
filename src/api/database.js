@@ -84,8 +84,6 @@ export function createAlbum(albumName) {
   });
 }
 
-window.createAlbum = createAlbum;
-
 export function viewAlbum(albumName) {
   var albumPhotosKey = encodeURIComponent(albumName) + "/";
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
