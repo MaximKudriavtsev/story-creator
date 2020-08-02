@@ -2,8 +2,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import ImageIcon from '@material-ui/icons/Image';
 import Tooltip from '@material-ui/core/Tooltip';
-import { EditableChip } from './editable-chip';
-import { listAlbums, viewAlbum } from '../../api/database';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { updatePhoto, deletePhoto } from '../../api/actions';
 
 const style = {
@@ -36,10 +35,13 @@ export const ImageLoader = ({ row }) => {
   const deleteImage = React.useCallback(() => {
     deletePhoto(dispatch)({ storyId: row.id, imgUrl: row.imgUrl });
   }, [row, dispatch]);
-
-  const onChangeHandler = (event) => {
+  const onChangeHandler = React.useCallback((event) => {
     const file = event.target.files[0];
     addImage({ file });
+  }, [addImage]);
+  
+  if (row.loading) {
+    return <CircularProgress color="secondary" />;
   }
 
   return (

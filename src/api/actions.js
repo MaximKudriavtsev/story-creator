@@ -29,38 +29,56 @@ export const updatePhoto =  dispatch => ({ file, storyId }) => {
   });
 
   const promise = upload.promise()
-  // dispatch - start uploading
+  // Loading = true
+  dispatch({
+    type: 'changeStory',
+    changed: {
+      [storyId]: { loading: true },
+    },
+  });
 
   promise.then(
     function(data) {
-      alert("Successfully uploaded photo.");
       dispatch({
         type: 'changeStory',
         changed: {
-          [storyId]: { imgUrl: data.Location },
+          [storyId]: { imgUrl: data.Location, loading: false },
         },
       });
     },
     function(err) {
-      // dispatch - failure
+      dispatch({
+        type: 'changeStory',
+        changed: {
+          [storyId]: { loading: false },
+        },
+      });
       return alert("There was an error uploading your photo: ", err.message);
     }
   );
 };
 
 export const deletePhoto = dispatch => ({ storyId, imgUrl }) => {
+  dispatch({
+    type: 'changeStory',
+    changed: { [storyId]: { loading: true } },
+  });
   const photoKey = imgUrl.slice(DATABASE_URL.length);
-  console.log(photoKey);
+
+
   s3.deleteObject({ Key: photoKey }, function(err, data) {
     if (err) {
+      dispatch({
+        type: 'changeStory',
+        changed: { [storyId]: { loading: false } },
+      });
       return alert("There was an error deleting your photo: ", err.message);
     }
     dispatch({
       type: 'changeStory',
       changed: {
-        [storyId]: { imgUrl: null },
+        [storyId]: { imgUrl: null, loading: false },
       },
     });
-    alert("Successfully deleted photo.");
   });
 }
