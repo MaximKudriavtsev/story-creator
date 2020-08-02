@@ -5,6 +5,9 @@ export default (data, name, goals, additional) => {
 
   data.forEach((story, id) => {
     result.push(`${id + 1}. As a ${story.role.trim()}, I want to be able to ${story.action.trim()}, so that I can ${story.purpose.trim()}.`);
+    if (story.imgUrl) {
+      result.push(`![](${story.imgUrl})`);
+    }
   });
 
   result.push('\n#### Acceptance Criteria & Tests');

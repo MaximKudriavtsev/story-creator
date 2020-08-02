@@ -22,6 +22,7 @@ const capitalize = (s) => {
 
 export const convertToPdfMeta = (storyName, goals, additional, stories) => {
   const content = [];
+  let images = {};
 
   content.push({ text: storyName, style: 'header' });
   
@@ -32,7 +33,14 @@ export const convertToPdfMeta = (storyName, goals, additional, stories) => {
   
   content.push({ text: 'User Stories', style: 'subheader' });
   content.push({
-    ol: stories.map(story => `As a ${story.role}, I want to be able to ${story.action} so that I can ${story.purpose}.`),
+    ol: stories.reduce((acc, story) => {
+      acc.push(`As a ${story.role}, I want to be able to ${story.action} so that I can ${story.purpose}.`);
+      if (story.imgUrl) {
+        acc.push({ image: story.id, fit: [720, 720], alignment: 'center' });
+        images = { ...images, [story.id]: story.imgUrl };
+      }
+      return acc;
+    }, []),
   });
 
   content.push({ text: 'Acceptance Criteria & Tests', style: 'subheader' });
@@ -57,5 +65,5 @@ export const convertToPdfMeta = (storyName, goals, additional, stories) => {
     content.push({ text: additional });
   }
 
-  return { content, styles };
+  return { content, styles, images };
 };

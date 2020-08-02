@@ -23,6 +23,7 @@ import DragIndicator from '@material-ui/icons/DragIndicator';
 import PostAdd from '@material-ui/icons/PostAdd';
 import Delete from '@material-ui/icons/Delete';
 import { RowDetail } from './table/row-detail';
+import { ImageLoader } from './table/image-loader';
 
 const getRowId = row => row.id;
 
@@ -47,6 +48,13 @@ const FocusableCell = ({ onClick, ...restProps }) => {
     return (
       <Table.Cell {...restProps} style={{ width }}>
         <DragHandle />
+      </Table.Cell>
+    );
+  }
+  if (restProps.column.name === 'image') {
+    return (
+      <Table.Cell {...restProps} style={{ width }}>
+        <ImageLoader row={restProps.row} />
       </Table.Cell>
     );
   }
@@ -100,6 +108,7 @@ const columns = [
   { name: 'action', title: 'Action' },
   { name: 'purpose', title: 'Purpose' },
   { name: 'tests', title: 'Tests', getCellValue: row => row.tests.length > 0 ? true : false },
+  { name: 'image', title: 'Image' },
   { name: 'drag', title: ' ' },
 ];
 
@@ -112,6 +121,7 @@ const tableColumnExtensions = [
   { columnName: 'action', wordWrapEnabled: true },
   { columnName: 'purpose', wordWrapEnabled: true },
   { columnName: 'tests', width: 55, align: 'center' },
+  { columnName: 'image', width: 70, align: 'center' },
   { columnName: 'drag', width: 40, align: 'center' },
 ];
 
