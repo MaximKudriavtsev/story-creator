@@ -12,6 +12,13 @@ const s3 = new AWS.S3({
   params: { Bucket: bucketName }
 });
 
+AWS.config.update({
+  region: bucketRegion,
+  credentials: new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: IdentityPoolId
+  })
+});
+
 export const updatePhoto =  dispatch => ({ file, storyId }) => {
   const fileName = file.name;
   const albumPhotosKey = encodeURIComponent(ALBUM_NAME) + "/";
