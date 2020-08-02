@@ -30,19 +30,24 @@ export const convertFromMD = (fileString) => {
     }
     if (line.indexOf('#### User Stories') > -1) { // user stories
       // 1. As a user, I want to be able to see a list of all available product previews, so that I can make a good choice for me.
+      // ![](https://user-story-creator.s3.eu-central-1.amazonaws.com/test/Support_3.png)
       for (let i = index + 1; i < contentLines.length && contentLines[i].indexOf('#') < 0 ; i ++) {
         const story = contentLines[i];
-        const role = story.substring(8, story.indexOf(', I want to'));
-        const action = story.substring(story.indexOf(' I want to be able to ') + 22, story.indexOf(', so that I can '));
-        const purpose = story.substring(story.indexOf(', so that I can ') + 16).replace('.', '');
-        const tests = [];
-        stories.push({
-          id: uuidv4(),
-          role,
-          action,
-          purpose,
-          tests,
-        });
+        if (story.slice(0, 3) === '![]') {
+          stories[stories.length - 1].imgUrl = story.slice(4, -1);
+        } else {
+          const role = story.substring(8, story.indexOf(', I want to'));
+          const action = story.substring(story.indexOf(' I want to be able to ') + 22, story.indexOf(', so that I can '));
+          const purpose = story.substring(story.indexOf(', so that I can ') + 16).replace('.', '');
+          const tests = [];
+          stories.push({
+            id: uuidv4(),
+            role,
+            action,
+            purpose,
+            tests,
+          });
+        }
       }
     }
 

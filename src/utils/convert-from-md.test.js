@@ -154,5 +154,18 @@ describe('#convertFromMD', () => {
         }],
       }]);
     });
+
+    it('should recognize story image', () => {
+      const test = '#### User Stories\n\n1. As a user, I want to be able to see a list of all available product previews, so that I can make a good choice for me.\n![](https://user-story-creator.s3.eu-central-1.amazonaws.com/test/Support_3.png)';
+
+      expect(convertFromMD(test).stories).toEqual([{
+        id: expect.any(String),
+        role: 'user',
+        action: 'see a list of all available product previews',
+        purpose: 'make a good choice for me',
+        imgUrl: 'https://user-story-creator.s3.eu-central-1.amazonaws.com/test/Support_3.png',
+        tests: [],
+      }]);
+    });
   });
 });
