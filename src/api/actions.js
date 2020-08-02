@@ -7,16 +7,16 @@ const IdentityPoolId = "eu-central-1:5786ef9b-b058-45e7-b698-aca2f1007fe9";
 
 const DATABASE_URL = `https://${bucketName}.s3.${bucketRegion}.amazonaws.com/`;
 
-const s3 = new AWS.S3({
-  apiVersion: "2006-03-01",
-  params: { Bucket: bucketName }
-});
-
 AWS.config.update({
   region: bucketRegion,
   credentials: new AWS.CognitoIdentityCredentials({
     IdentityPoolId: IdentityPoolId
   })
+});
+
+const s3 = new AWS.S3({
+  apiVersion: "2006-03-01",
+  params: { Bucket: bucketName }
 });
 
 export const updatePhoto =  dispatch => ({ file, storyId }) => {
