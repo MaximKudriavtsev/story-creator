@@ -24,15 +24,15 @@ export default () => {
     <Paper>
       <AppBar position="static" color="default">
         <Tabs value={tabValue} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Markdown" />
           <Tab label="Preview" />
+          <Tab label="Markdown" />
         </Tabs>
       </AppBar>
       <TabPanel value={tabValue} index={0}>
-        <TextField value={markdown} variant="outlined" multiline style={{ width: '100%' }} />
+        <div dangerouslySetInnerHTML={{ __html: marked(markdown) }} />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <div dangerouslySetInnerHTML={{ __html: marked(markdown) }} />
+        <TextField value={markdown} variant="outlined" multiline style={{ width: '100%' }} />
       </TabPanel>
     </Paper>
   );
