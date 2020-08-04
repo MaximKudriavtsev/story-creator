@@ -1,0 +1,1 @@
+export const convertToStory = story => `As a ${story.role.trim()}, I want to be able to ${story.action.trim()} so that I can ${story.purpose.trim()}.`;

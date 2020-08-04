@@ -1,3 +1,5 @@
+import { convertToStory } from './convert-to-story';
+
 const styles = {
   header: {
     fontSize: 18,
@@ -34,7 +36,7 @@ export const convertToPdfMeta = (storyName, goals, additional, stories) => {
   content.push({ text: 'User Stories', style: 'subheader' });
   content.push({
     ol: stories.reduce((acc, story) => {
-      acc.push(`As a ${story.role}, I want to be able to ${story.action} so that I can ${story.purpose}.`);
+      acc.push(convertToStory(story));
       if (story.imgUrl) {
         acc.push({ image: story.id, fit: [520, 520], alignment: 'center' });
         images = { ...images, [story.id]: story.imgUrl };

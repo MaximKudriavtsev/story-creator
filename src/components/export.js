@@ -22,6 +22,8 @@ import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import DescriptionIcon from '@material-ui/icons/Description';
 import GridOnIcon from '@material-ui/icons/GridOn';
 
+import { convertToStory } from '../utils/convert-to-story';
+
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export default () => {
@@ -68,7 +70,7 @@ export default () => {
     ];
 
     stories.forEach((story, index) => {
-      worksheet.addRow({ id: index, userStory: `As a ${story.role}, I want to be able to ${story.action} so that I can ${story.purpose}.` });
+      worksheet.addRow({ id: index, userStory: convertToStory(story) });
     });
 
     workbook.xlsx.writeBuffer().then((buffer) => {

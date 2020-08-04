@@ -1,10 +1,12 @@
+import { convertToStory } from './convert-to-story';
+
 export default (data, name, goals, additional) => {
   const result = [`## ${name}`];
   !!goals.trim() && result.push(`\n#### Goals\n\n${goals.trim()}`);
   result.push('\n#### User Stories\n');
 
   data.forEach((story, id) => {
-    result.push(`${id + 1}. As a ${story.role.trim()}, I want to be able to ${story.action.trim()}, so that I can ${story.purpose.trim()}.`);
+    result.push(`${id + 1}. ${convertToStory(story)}`);
     if (story.imgUrl) {
       result.push(`![](${story.imgUrl})`);
     }
