@@ -31,7 +31,8 @@
     "marked": "^1.1.1",
     "js-cookie": "^2.2.1",
     "pdfmake": "^0.1.68",
-    "aws-sdk": "^2.725.0"
+    "aws-sdk": "^2.725.0",
+    "exceljs": "^4.1.1"
   },
   "devDependencies": {
     "prettier": "2.0.5",

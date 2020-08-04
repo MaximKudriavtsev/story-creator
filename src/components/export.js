@@ -16,8 +16,11 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { convertToPdfMeta } from '../utils/convert-to-pdf-meta';
 
+import ExcelJS from "exceljs";
+
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import DescriptionIcon from '@material-ui/icons/Description';
+import GridOnIcon from '@material-ui/icons/GridOn';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -53,6 +56,25 @@ export default () => {
     });
 
     saveAs(blob, filename);
+  }, [stories, storyName, goals, additional]);
+
+  const exportExcel = React.useCallback(() => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet(`${storyName}`);
+
+    worksheet.columns = [
+      { header: 'ID', key: 'id', width: 10 },
+      { header: 'User Story', key: 'userStory', width: 100 },
+    ];
+
+    stories.forEach((story, index) => {
+      worksheet.addRow({ id: index, userStory: `As a ${story.role}, I want to be able to ${story.action} so that I can ${story.purpose}.` });
+    });
+
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      saveAs(new Blob([buffer], { type: 'application/octet-stream' }), `${storyName}.xlsx`);
+    });
+
   }, [stories, storyName, goals, additional]);
 
   const open = Boolean(anchorEl);
@@ -92,6 +114,13 @@ export default () => {
               <PictureAsPdfIcon />
             </ListItemIcon>
             <ListItemText primary="PDF Document" />
+          </ListItem>
+          
+          <ListItem button onClick={exportExcel}>
+            <ListItemIcon>
+              <GridOnIcon />
+            </ListItemIcon>
+            <ListItemText primary="Excel Document" />
           </ListItem>
         </List>
       </Popover>
