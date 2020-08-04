@@ -42,24 +42,25 @@ const DragHandle = SortableHandle(({ style }) => (
   </Tooltip>
 ));
 
-const FocusableCell = ({ onClick, ...restProps }) => {
+const FocusableCell = React.memo(({ onClick, ...restProps }) => {
   const width = restProps.column.name === 'drag' ? 50 : 195;
+  const style = React.useMemo(() => ({ width }), [width]);
   if (restProps.column.name === "drag") {
     return (
-      <Table.Cell {...restProps} style={{ width }}>
+      <Table.Cell {...restProps} style={style}>
         <DragHandle />
       </Table.Cell>
     );
   }
   if (restProps.column.name === 'image') {
     return (
-      <Table.Cell {...restProps} style={{ width }}>
-        <ImageLoader row={restProps.row} />
+      <Table.Cell {...restProps} style={style}>
+        <ImageLoader storyId={restProps.row.id} imgUrl={restProps.row.imgUrl} loading={restProps.row.loading} />
       </Table.Cell>
     );
   }
   return <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} style={{ ...restProps.style, cursor: 'pointer', width }} />;
-}
+});
 
 const AddButton = ({ onExecute }) => (
   <Tooltip title="Create a story" enterDelay={500}>
@@ -172,7 +173,7 @@ export default () => {
         rowComponent={({ row, ...restProps }) => {
           const TableRow = SortableElement(Table.Row);
           return <TableRow {...restProps} row={row} index={stories.indexOf(row)} />;
-        }}  
+        }}
       />
       <TableHeaderRow />
       <TableInlineCellEditing selectTextOnEditStart />

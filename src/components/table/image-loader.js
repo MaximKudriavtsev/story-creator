@@ -27,38 +27,36 @@ const iconStyle = {
   cursor: 'pointer'
 };
 
-export const ImageLoader = ({ row }) => {
+export const ImageLoader = React.memo(({ storyId, imgUrl, loading }) => {
   const dispatch = useDispatch();
-  const addImage = React.useCallback(({ file }) => {
-    updatePhoto(dispatch)({ storyId: row.id, file });
-  }, [row, dispatch]);
   const deleteImage = React.useCallback(() => {
-    deletePhoto(dispatch)({ storyId: row.id, imgUrl: row.imgUrl });
-  }, [row, dispatch]);
+    deletePhoto(dispatch)({ storyId: storyId, imgUrl });
+  }, [storyId, imgUrl, dispatch]);
   const onChangeHandler = React.useCallback((event) => {
     const file = event.target.files[0];
-    addImage({ file });
-  }, [addImage]);
+    updatePhoto(dispatch)({ storyId: storyId, file });
+  }, [storyId, dispatch]);
+  const inputId = `input_${storyId}`;
   
-  if (row.loading) {
+  if (loading) {
     return <CircularProgress color="secondary" size={30} />;
   }
 
   return (
     <div>
-      {row.imgUrl ? (
+      {imgUrl ? (
         <Tooltip title="Delete image">
           <img
-            src={row.imgUrl}
+            src={imgUrl}
             style={imageStyle}
             onClick={deleteImage}
           />
         </Tooltip>
       ) : (
         <Tooltip title="Upload image">
-          <label htmlFor="file">
+          <label htmlFor={inputId}>
             <input
-              id="file"
+              id={inputId}
               style={style}
               type="file"
               name="file"
@@ -70,4 +68,4 @@ export const ImageLoader = ({ row }) => {
       )}
     </div>
   );
-};
+});

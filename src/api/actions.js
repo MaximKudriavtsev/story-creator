@@ -19,7 +19,7 @@ const s3 = new AWS.S3({
   params: { Bucket: bucketName }
 });
 
-export const updatePhoto =  dispatch => ({ file, storyId }) => {
+export const updatePhoto = dispatch => ({ file, storyId }) => {
   const fileName = file.name;
   const albumPhotosKey = encodeURIComponent(ALBUM_NAME) + "/";
 
