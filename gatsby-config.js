@@ -4,8 +4,10 @@ module.exports = {
     title: `Story Creator App`,
     description: `The application generates user stories MD markup based on your minimum data.`,
     author: `Maxim Kudryavtsev`,
+    siteUrl: `https://maximkudriavtsev.github.io/story-creator/`,
   },
   plugins: [
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
