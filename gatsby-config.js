@@ -4,7 +4,7 @@ module.exports = {
     title: `Story Creator App`,
     description: `The application generates user stories MD markup based on your minimum data.`,
     author: `Maxim Kudryavtsev`,
-    siteUrl: `https://maximkudriavtsev.github.io/story-creator/`,
+    siteUrl: `https://maximkudriavtsev.github.io/`,
   },
   plugins: [
     `gatsby-plugin-sitemap`,
