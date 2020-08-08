@@ -21,8 +21,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `The application for simple creating user stories.`,
+        short_name: `Creating User Stories app`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
