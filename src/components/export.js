@@ -77,7 +77,7 @@ export default () => {
       saveAs(new Blob([buffer], { type: 'application/octet-stream' }), `${storyName}.xlsx`);
     });
 
-  }, [stories, storyName, goals, additional]);
+  }, [stories, storyName]);
 
   const open = Boolean(anchorEl);
 
