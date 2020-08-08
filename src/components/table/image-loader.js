@@ -47,6 +47,7 @@ export const ImageLoader = React.memo(({ storyId, imgUrl, loading }) => {
       {imgUrl ? (
         <Tooltip title="Delete image">
           <img
+            alt="img preview"
             src={imgUrl}
             style={imageStyle}
             onClick={deleteImage}

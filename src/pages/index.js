@@ -26,7 +26,7 @@ const IndexPage = () => (
         <h3>
           {block.title}
         </h3>
-        {block.image()}
+        <img src={block.image} alt="feature illustration" />
         <p>
           {block.text}
         </p>
