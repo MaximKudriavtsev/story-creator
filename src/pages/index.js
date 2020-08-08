@@ -4,14 +4,13 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-import pageConfig from '../landing-page-config';
+import pageConfig, { main } from '../landing-page-config';
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
-    <h1>User Story Creator App.</h1>
-    <p>Create user stories files quickly and easily.</p>
-    <p>The application generates user stories MD markup based on your minimum data.</p>
+    <SEO title="Introducing to User Stories" />
+    <h1>{main.title}</h1>
+    <p>{main.text}</p>
 
     <Link to="/user-story-creator/">
       <button>
@@ -22,11 +21,14 @@ const IndexPage = () => (
     <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
     </div>
     {pageConfig.map(block => (
-      <div>
+      <div key={block.alt}>
         <h3>
           {block.title}
         </h3>
-        <img src={block.image} alt="feature illustration" />
+        <img
+          src={block.image}
+          alt={block.alt}
+        />
         <p>
           {block.text}
         </p>
