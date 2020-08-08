@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "gatsby"
-import { dispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -16,6 +16,7 @@ import SEO from "./seo";
 import Export from './export'
 
 function App() {
+  const dispatch = useDispatch();
   const openDialog = React.useCallback(() => dispatch({ type: 'setDialog', value: true }), [dispatch]);
   const resetData = React.useCallback(() => dispatch({ type: 'resetData' }), [dispatch]);
   

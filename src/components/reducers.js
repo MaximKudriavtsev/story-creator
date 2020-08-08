@@ -45,14 +45,12 @@ const getEmptyTest = (text) => ({
 });
 
 const getInitialState = () => {
-  // const state = Cookies.get('state');
   const state = store.get('state');
   if (state) return state;
   return initialState;
 };
 
 const saveToStorage = (state) => {
-  // Cookies.set('state', state, { sameSite: 'None' });
   store.set('state', state, true);
   return state;
 };
@@ -60,7 +58,6 @@ const saveToStorage = (state) => {
 export default (state = getInitialState(), action) => {
   switch (action.type) {
     case 'resetData': {
-      // Cookies.remove('state');
       store.clear();
       return initialState;
     }
