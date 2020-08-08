@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import Cookies from 'js-cookie'
+import store from 'store2';
 
 const defaultStoryName = 'Untitled Stories';
 
@@ -38,42 +38,45 @@ const getEmptyTest = (text) => ({
 });
 
 const getInitialState = () => {
-  const state = Cookies.get('state');
-  if(state) return JSON.parse(state);
+  // const state = Cookies.get('state');
+  const state = store.get('state');
+  if (state) return state;
   return initialState;
 };
 
-const saveToCookies = (state) => {
-  Cookies.set('state', state, { sameSite: 'None' });
+const saveToStorage = (state) => {
+  // Cookies.set('state', state, { sameSite: 'None' });
+  store.set('state', state, true);
   return state;
 };
 
 export default (state = getInitialState(), action) => {
   switch (action.type) {
     case 'resetData': {
-      Cookies.remove('state');
+      // Cookies.remove('state');
+      store.clear();
       return initialState;
     }
     case 'setState': {
-      return saveToCookies({ ...state, storyName: action.name, stories: action.stories, goals: action.goals, additional: action.additional });
+      return saveToStorage({ ...state, storyName: action.name, stories: action.stories, goals: action.goals, additional: action.additional });
     }
     case 'setGoals': {
-      return saveToCookies({ ...state, goals: action.goals });
+      return saveToStorage({ ...state, goals: action.goals });
     }
     case 'setAdditional': {
-      return saveToCookies({ ...state, additional: action.additional });
+      return saveToStorage({ ...state, additional: action.additional });
     }
     case 'setStoryName': {
       if (action.storyName.trim() === '') {
-        return saveToCookies({ ...state, storyName: defaultStoryName });
+        return saveToStorage({ ...state, storyName: defaultStoryName });
       }
-      return saveToCookies({ ...state, storyName: action.storyName });
+      return saveToStorage({ ...state, storyName: action.storyName });
     }
     case 'setStories': {
-      return saveToCookies({ ...state, stories: action.stories });
+      return saveToStorage({ ...state, stories: action.stories });
     }
     case 'addStory': { // OK
-      return saveToCookies({
+      return saveToStorage({
         ...state,
         stories: [...state.stories, getEmptyStory()] 
       });
@@ -82,14 +85,14 @@ export default (state = getInitialState(), action) => {
       const deletedSet = new Set(action.deleted);
       const nextStories = state.stories.filter(row => !deletedSet.has(row.id));
 
-      return saveToCookies({
+      return saveToStorage({
         ...state,
         stories: nextStories,
       });
     }
     case 'changeStory': { // OK
       const nextStories = state.stories.map(row => (action.changed[row.id] ? { ...row, ...action.changed[row.id] } : row));
-      return saveToCookies({
+      return saveToStorage({
         ...state, stories: nextStories,
       });
     }
@@ -102,7 +105,7 @@ export default (state = getInitialState(), action) => {
         return acc;
       }, []);
 
-      return saveToCookies({
+      return saveToStorage({
         ...state, stories: nextStories,
       });
     }
@@ -113,7 +116,7 @@ export default (state = getInitialState(), action) => {
         } return story;
       });
 
-      return saveToCookies({
+      return saveToStorage({
         ...state, stories: nextStories,
       });
     }
@@ -128,7 +131,7 @@ export default (state = getInitialState(), action) => {
         } return story;
       });
 
-      return saveToCookies({
+      return saveToStorage({
         ...state, stories: nextStories,
       });
     }
