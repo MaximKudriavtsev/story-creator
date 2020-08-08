@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import PublishIcon from '@material-ui/icons/Publish';
 import Tooltip from '@material-ui/core/Tooltip';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
@@ -31,13 +32,12 @@ function App() {
             </Link>
           </Typography>
           <StoryName />
-          <Tooltip title="Upload a markdown file">
-            <IconButton
-              onClick={openDialog}
-            >
-              <PublishIcon />
-            </IconButton>
-          </Tooltip>
+          <Button
+            onClick={openDialog}
+            startIcon={<PublishIcon />}
+          >
+            Upload
+          </Button>
           <Export />
           <Tooltip title="Reset data">
             <IconButton

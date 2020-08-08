@@ -9,7 +9,7 @@ import { saveAs } from 'file-saver';
 import convertToMD from '../utils/convert-to-md';
 
 import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import GetAppIcon from '@material-ui/icons/GetApp';
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -83,13 +83,12 @@ export default () => {
 
   return (
     <>
-      <Tooltip title="Export">
-        <IconButton
-          onClick={handleClick}
-        >
-          <GetAppIcon />
-        </IconButton>
-      </Tooltip>
+      <Button
+        onClick={handleClick}
+        startIcon={<GetAppIcon />}
+      >
+        Export
+      </Button>
       <Popover
         open={open}
         anchorEl={anchorEl}

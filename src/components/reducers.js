@@ -12,7 +12,7 @@ const initialState = {
     role: 'User',
     action: 'open my recent contacts',
     purpose: 'get to know about who called me last',
-    imgUrl: 'https://apple-rent.ru/wp-content/uploads/2019/08/clear-apple-watch-recent-calls-510x1024.png',
+    imgUrl: 'https://user-story-creator.s3.eu-central-1.amazonaws.com/recent-calls.png',
     tests: [{
       id: uuidv4(),
       text: 'Unlock my phone'
