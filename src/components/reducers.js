@@ -1,23 +1,30 @@
 import { v4 as uuidv4 } from 'uuid';
 import store from 'store2';
 
-const defaultStoryName = 'Untitled Stories';
+const defaultStoryName = 'Mobile App';
 
 const initialState = {
   storyName: defaultStoryName,
-  goals: '',
-  additional: '',
+  goals: 'Give the user information about the recent callers.',
+  additional: 'Show recent calls above previous ones.',
   stories: [{
     id: uuidv4(),
-    role: 'Story Tailer',
-    action: 'make stories',
-    purpose: 'make my work more convenient',
+    role: 'User',
+    action: 'open my recent contacts',
+    purpose: 'get to know about who called me last',
+    imgUrl: 'https://apple-rent.ru/wp-content/uploads/2019/08/clear-apple-watch-recent-calls-510x1024.png',
     tests: [{
       id: uuidv4(),
-      text: 'Open Story Creator App'
+      text: 'Unlock my phone'
     }, {
       id: uuidv4(),
-      text: 'Enjoy 😃',
+      text: 'Open contacts app',
+    }, {
+      id: uuidv4(),
+      text: 'Switch to recent contacts',
+    }, {
+      id: uuidv4(),
+      text: 'See who called me last',
     }]
   }],
 
