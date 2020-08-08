@@ -28,7 +28,9 @@ export default () => {
           <Tab label="Additional" />
         </Tabs>
       </AppBar>
-      <TabPanel value={tabValue} index={0} padding={0}>
+      <TabPanel value={tabValue} index={0} padding={0} style={{ height: '85vh' }}>
+        {/* workaround for tab panel shadow */}
+        <div style={{ height: '10px', width: '100%' }} />
         <Table />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>

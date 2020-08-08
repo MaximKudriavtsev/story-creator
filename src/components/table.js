@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { EditingState, RowDetailState, DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  VirtualTable,
   TableHeaderRow,
   TableEditColumn,
   TableRowDetail,
@@ -26,8 +26,16 @@ import { RowDetail } from './table/row-detail';
 import { ImageLoader } from './table/image-loader';
 
 const getRowId = row => row.id;
+const emptyArray = [];
+const booleans = ['tests'];
 
-const BooleanFormatter = ({ value }) => value ? <Done /> : <Close />;
+const Root = props => <Grid.Root {...props} style={{ height: '100%' }} />;
+
+const BooleanFormatter = ({ value }) => (
+  <Tooltip title="Click to chevron icon to edit tests">
+    {value ? <Done /> : <Close />}
+  </Tooltip>
+);
 
 const BooleanTypeProvider = props => (
   <DataTypeProvider
@@ -47,19 +55,19 @@ const FocusableCell = React.memo(({ onClick, ...restProps }) => {
   const style = React.useMemo(() => ({ width }), [width]);
   if (restProps.column.name === "drag") {
     return (
-      <Table.Cell {...restProps} style={style}>
+      <VirtualTable.Cell {...restProps} style={style}>
         <DragHandle />
-      </Table.Cell>
+      </VirtualTable.Cell>
     );
   }
   if (restProps.column.name === 'image') {
     return (
-      <Table.Cell {...restProps} style={style}>
+      <VirtualTable.Cell {...restProps} style={style}>
         <ImageLoader storyId={restProps.row.id} imgUrl={restProps.row.imgUrl} loading={restProps.row.loading} />
-      </Table.Cell>
+      </VirtualTable.Cell>
     );
   }
-  return <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} style={{ ...restProps.style, cursor: 'pointer', width }} />;
+  return <VirtualTable.Cell {...restProps} tabIndex={0} onFocus={onClick} style={{ ...restProps.style, cursor: 'pointer', width }} />;
 });
 
 const AddButton = ({ onExecute }) => (
@@ -134,7 +142,7 @@ export default () => {
   const onSortEnd = React.useCallback(({ oldIndex, newIndex }) =>
     dispatch({ type: 'setStories', stories: arrayMove(stories, oldIndex, newIndex) }), [dispatch, stories]);
   const Body = React.useCallback((props) => {
-    const TableBody = SortableContainer(Table.TableBody);
+    const TableBody = SortableContainer(VirtualTable.TableBody);
     return (
       <TableBody {...props} onSortEnd={onSortEnd} useDragHandle />
     );
@@ -154,24 +162,26 @@ export default () => {
       rows={stories}
       columns={columns}
       getRowId={getRowId}
+      rootComponent={Root}
     >
-      <BooleanTypeProvider for={['tests']} />
+      <BooleanTypeProvider for={booleans} />
 
       <RowDetailState />
       <EditingState
         onCommitChanges={commitChanges}
         editingCells={editingCells}
         onEditingCellsChange={setEditingCells}
-        addedRows={[]}
+        addedRows={emptyArray}
         onAddedRowsChange={addEmptyStory}
         columnExtensions={editingStateColumnExtensions}
       />
-      <Table
+      <VirtualTable
+        height="auto"
         columnExtensions={tableColumnExtensions}
         cellComponent={FocusableCell}
         bodyComponent={Body}
         rowComponent={({ row, ...restProps }) => {
-          const TableRow = SortableElement(Table.Row);
+          const TableRow = SortableElement(VirtualTable.Row);
           return <TableRow {...restProps} row={row} index={stories.indexOf(row)} />;
         }}
       />
