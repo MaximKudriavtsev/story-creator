@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "agile-user-stories-creating-tool",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "The application by using templates generates user stories MD, PDF and Excel files based on your minimal texts and feature mockup images.",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Max Kudryavtsev <mac.kudryavtsev@gmail.com>",
   "dependencies": {
     "gatsby": "^2.24.11",
     "gatsby-image": "^2.4.13",
@@ -43,7 +43,7 @@
     "babel-preset-gatsby": "^0.5.4"
   },
   "keywords": [
-    "gatsby"
+    "Agile", "User Story", "User Story Template", "Product Management"
   ],
   "license": "0BSD",
   "scripts": {
@@ -59,10 +59,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/MaximKudriavtsev/story-creator"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/MaximKudriavtsev/story-creator/issues"
   },
   "homepage": "https://maximkudriavtsev.github.io/story-creator/"
 }
