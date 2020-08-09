@@ -5,8 +5,8 @@ import image from '../src/images/image.png';
 import pdf from '../src/images/pdf.png';
 
 export const main = {
-  title: 'Create Agile User Stories',
-  text: 'The application generates user stories MD, PDF and Excel files based on your minimal texts and feature mockups.',
+  title: 'Agile User Stories Creating Tool',
+  text: 'The application by using templates generates user stories MD, PDF and Excel files based on your minimal texts and feature mockup images.',
 };
 
 export default [
@@ -14,13 +14,13 @@ export default [
     image: preview,
     alt: 'preview',
     title: 'Generates a MD File According Your User Stories',
-    text: 'You do not need to think about formatting your documents, the application will add all the necessary headings and necessary indents automatically. Copy the resulting MD text and attach it to your planning tool such as Trello or Gira.',
+    text: 'You do not need to think about formatting your documents, the application will add all the necessary headings and necessary indents automatically by using template method. Copy the resulting MD text and attach it to your planning tool such as Trello and Gira.',
   },
   {
     image: editing,
     alt: 'editing',
     title: 'Easy User Stories Editing',
-    text: 'The application provides ample opportunities for editing your data. You can add add new and delete and modify old user stories, as well as change their sequence number.',
+    text: 'The application provides ample opportunities for editing your data. You can add new and delete and modify old user stories, as well as change their order.',
   },
   {
     image: image,
@@ -32,12 +32,12 @@ export default [
     image: download,
     alt: 'saving',
     title: 'Saving and Uploading Files',
-    text: 'You can save the document when you have finished work to your computer and load an existing document to edit it.',
+    text: 'You can save the document when you have finished work to your computer and load an existing document to continue developing it.',
   },
   {
     image: pdf,
     alt: 'pdf document',
     title: 'Final PDF Document',
-    text: 'After writing all user stories, you can create a PDF document with all data, including user stories, criteria and acceptance tests, as well as attached mockup images.',
+    text: 'After writing all user stories, you can make a PDF document with all data, including user stories, criteria and acceptance tests, as well as attached mockup images. All data will automatically alined and nice presented without extra formatting.',
   }
 ];
