@@ -61,15 +61,6 @@ const IndexPage = () => (
     <Layout>
       <SEO title="Introducing to User Stories" />
 
-      <h1>{main.title}</h1>
-      <p>{main.text}</p>
-
-      <Link to="/user-story-creator/">
-        <button>
-          Try it for free!
-        </button>
-      </Link>
-
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
       </div>
       {pageConfig.map(block => (
