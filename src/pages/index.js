@@ -30,22 +30,25 @@ const IndexPage = () => (
           <h2 style={{ color: 'rgb(73, 74, 75)', fontWeight: 'lighter', lineHeight: '40px' }}>
             {main.text}
           </h2>
-          <button
-            style={{
-              width: '70%',
-              height: '70px',
-              borderRadius: '35px',
-              color: 'white',
-              border: '0',
-              backgroundImage: 'linear-gradient(90deg, rgb(0, 113, 230) 0%, rgb(0, 69, 190) 100%)',
-              maxWidth: '260px',
-              boxShadow: '7px 7px 25px rgba(14, 4, 152, 0.36)',
-              fontWeight: 'bold',
-              fontSize: '25px'
-            }}
-          >
-            Try it free!
-          </button>
+          <Link to="/user-story-creator/">
+            <button
+              style={{
+                width: '70%',
+                height: '70px',
+                borderRadius: '35px',
+                color: 'white',
+                border: '0',
+                backgroundImage: 'linear-gradient(90deg, rgb(0, 113, 230) 0%, rgb(0, 69, 190) 100%)',
+                maxWidth: '260px',
+                boxShadow: '7px 7px 25px rgba(14, 4, 152, 0.36)',
+                fontWeight: 'bold',
+                fontSize: '25px',
+                cursor: 'pointer'
+              }}
+            >
+              Try it free!
+            </button>
+          </Link>
         </div>
       </div>
 
