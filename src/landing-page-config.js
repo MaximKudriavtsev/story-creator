@@ -9,6 +9,12 @@ export const main = {
   text: 'The application by using templates generates user stories MD, PDF and Excel files based on your minimal texts and feature mockup images.',
 };
 
+export const page404  = {
+  title: 'Oops 404!',
+  text: 'It looks like you can`t move forward...',
+  button: 'Back Home'
+};
+
 export default [
   {
     image: preview,
