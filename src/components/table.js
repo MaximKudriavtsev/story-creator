@@ -77,7 +77,7 @@ const AddButton = ({ onExecute }) => (
       onClick={onExecute}
     >
       <PostAdd
-        style={{ color: '#E91E63' }}
+        color="primary"
       />
     </IconButton>
   </Tooltip>
