@@ -3,6 +3,7 @@ import { Link } from "gatsby";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import Logo from '../components/logo';
 
 import pageConfig, { main } from '../landing-page-config';
 import gradient from '../images/landing-gradient.svg';
@@ -13,7 +14,10 @@ const IndexPage = () => (
     <div style={{ backgroundColor: 'white', height: '100vh', width: '100%', display: 'flex' }}>
       <div style={{ backgroundColor: 'white', height: '100vh', width: '48%' }}>
         <div style={{ backgroundColor: 'white', padding: '0 calc(100vw * 0.03)' }}>
-          <h1 style={{ marginTop: 'calc(100vw * 0.13)', color: 'rgb(24, 25, 26)', fontWeight: 'bold' }}>
+          <div style={{ marginTop: 'calc(100vw * 0.03)' }}>
+            <Logo />
+          </div>
+          <h1 style={{ marginTop: 'calc(100vw * 0.10)', color: 'rgb(24, 25, 26)', fontWeight: 'bold' }}>
             {main.title}
           </h1>
           <div

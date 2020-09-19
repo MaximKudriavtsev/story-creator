@@ -14,7 +14,8 @@ import EditablePart from './editable-part';
 import StoryName from './story-name';
 import UploadMenu from './upload-menu';
 import SEO from "./seo";
-import Export from './export'
+import Export from './export';
+import Logo from './logo';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,11 +27,9 @@ function App() {
       <SEO title="Create User Story" />
       <AppBar position="static" color="default">
         <Toolbar>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
-            <Link to="/" style={{ textDecoration: 'none', color: 'rgb(96, 96, 96)' }}>
-              Story Creator
-            </Link>
-          </Typography>
+          <div style={{ flexGrow: 1 }}>
+            <Logo />
+          </div>
           <StoryName />
           <Button
             onClick={openDialog}
