@@ -29,7 +29,7 @@
     "redux": "^4.0.5",
     "react-redux": "^7.2.1",
     "react-sortable-hoc": "^1.11.0",
-    "marked": "^1.1.1",
+    "marked": "^4.0.10",
     "pdfmake": "^0.1.68",
     "aws-sdk": "^2.725.0",
     "exceljs": "^4.1.1",
